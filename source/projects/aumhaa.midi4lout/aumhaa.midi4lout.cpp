@@ -1,19 +1,23 @@
-//amounra 021022
+//amounra 022122
 
 #include <iostream>
 #include <queue>
 #include "RtMidi.h"
 #include "c74_min.h"
 
+using midi_byte = uint8_t;
+using midi_data = midi_byte[3];
+
+
 using namespace c74::min;
 
 std::queue <int> midi_messages;
 
+std::vector<unsigned char>  m4m_message {};
+
 class midi4lout : public object<midi4lout> {
     
-    
-    
-    
+
 public:
     MIN_DESCRIPTION    {"Midi Input Object."};
     MIN_TAGS        {"utilities"};
@@ -22,17 +26,14 @@ public:
     
     inlet<>  input    { this, "serialized midi data input" };
     inlet<> input2 {this, "set output port, query available ports"};
-//    outlet<>  output { this, "output serialized midi data from the selected input port" };
     outlet<>  output2 { this, "output names of available input ports" };
     
     RtMidiOut *midiout = new RtMidiOut(RtMidi::MACOSX_CORE);
-    //    RtMidiIn *midiin = 0;
-    //    bool initialized = false;
+
     
     
     ~midi4lout (){
         if(midiout){
-//            midiout->cancelCallback();
             midiout->closePort();
         }
         delete midiout;
@@ -63,17 +64,7 @@ public:
             return {};
         }
     };
-    
-    //this is a hack to deal with crashypants when we try to call output.send directly from a static member.
-    timer<> defer {this,
-        MIN_FUNCTION {
-            while(!midi_messages.empty()){
-//                output.send(midi_messages.front());
-                midi_messages.pop();
-            }
-            return {};
-        }
-    };
+
     
     //although we store the port in this attribute, we need to use a non-max value
     //for updating since setter has no option to set the data
@@ -126,7 +117,6 @@ public:
     void assign_port (string stored_portname) {
         midiout->closePort();
         if (stored_portname == "None") {
-//            midiout->cancelCallback();
             midiout->closePort();
         }
         else {
@@ -139,8 +129,6 @@ public:
                     if(stored_portname==portName){
                         found = true;
                         midiout->openPort(i, portName);
-//                        midiout->setCallback(&midioutCallback, (void*)this);
-//                        midiout->ignoreTypes(false, false, false);
                         cout << portName + "opened!" << endl;
                     }
                 }
@@ -151,8 +139,6 @@ public:
             if(!found){
                 try {
                     midiout->openVirtualPort(stored_portname);
-//                    midiout->setCallback(&midioutCallback, (void*)this);
-//                    midiout->ignoreTypes(false, false, false);
                     cout << stored_portname + "opened!" << endl;
                 }
                 catch ( RtMidiError &error ) {
@@ -161,28 +147,61 @@ public:
             }
         }
     };
+
     
-    //this static function uses *userData as a pointer to the instance.  It can't call anything that
-    //sends an output to max, so we defer it slightly and queue its messages to be handled by another method.
-    static void midioutCallback ( double deltatime, std::vector< unsigned char > *message, void *userData ) {
-        auto& owner = *(midi4lout*)userData;
-        owner.defer.delay(0);
-        unsigned int nBytes = message->size();
-        for ( unsigned int i=0; i<nBytes; i++ )
-            midi_messages.push(message->at(i));
-    };
-    
-    //select the port from max via a message in inport 1
-    message<> m_port { this, "port", "Port selection",
-        MIN_FUNCTION {
-            //            cout << "port received: " + std::to_string(args) + std::to_string(args.size()) << endl;
-            if(args.size()){
-                portname = args[0];
+//    //select the port from max via a message in inport 1
+//    message<> m_port { this, "port", "Port selection",
+//        MIN_FUNCTION {
+//            //            cout << "port received: " + std::to_string(args) + std::to_string(args.size()) << endl;
+//            if(args.size()){
+//                portname = args[0];
+//            }
+//            return {};
+//        }
+//    };
+
+    message<threadsafe::no> ints {
+        this, "int", "MIDI byte or Port selection", MIN_FUNCTION {
+            int a;
+            unsigned char x;
+            int stored_message_size = m4m_message.size();
+
+            switch (inlet) {
+                case 0:
+                    if(args.size()==1){
+                        a = args[0];
+                        if(a == 247){
+                            if(stored_message_size>1){
+                                x = static_cast<unsigned char>(a);
+                                m4m_message.push_back(x);
+                            }
+                        }
+                        else if(a > 127){
+                            m4m_message = {};
+                            x = static_cast<unsigned char>(a);
+                            m4m_message.push_back(x);
+                        }
+                        else if(a < 128){
+                            x = static_cast<unsigned char>(a);
+                            m4m_message.push_back(x);
+                        }
+                        if(validate_message()){
+                            send_message();
+                        }
+                    }
+                    break;
+                case 1:
+                    if(args.size()){
+                        portname = args[0];
+                    }
+                    break;
+                default:
+                    assert(false);
             }
             return {};
         }
     };
-    
+
     //update the port information through the second outlet
     message<> bang { this, "bang", "List available output ports.",
         MIN_FUNCTION {
@@ -191,6 +210,34 @@ public:
         }
     };
     
+    void send_message() {
+        
+//        cout << "Send Message Out: " + std::to_string(num) << endl;
+
+        int x;
+        unsigned char a;
+        std::vector<unsigned char>  msg {};
+        int stored_message_size = m4m_message.size();
+
+        if(stored_message_size>1){
+            if ( midiout->isPortOpen() ) {
+                for (int i=0; i<stored_message_size; i++) {
+                    x = m4m_message[i];
+                    a = static_cast<unsigned char>(x);
+                    msg.push_back(a);
+                }
+                try {
+                    midiout->sendMessage(&msg);
+                }
+                catch (RtMidiError &error) {
+                    error.printMessage();
+                    cout << "Send MIDI Error" << endl;
+                }
+            }
+        }
+    };
+    
+    
     //    message<> m_anything { this, "anything", "Port selection",
     //        MIN_FUNCTION {
     //            cout << "anything received: " + std::to_string(args) << endl;
@@ -198,17 +245,33 @@ public:
     //        }
     //    };
     
-    //    message<> m_list { this, "list", "Complete Midi message input",
-    //        MIN_FUNCTION {
-    //
-    //            int length = args.size();
-    //            cout << "length of list is: " + std::to_string(length) << endl;
-    //            if (args[0] == "port") {
-    //                cout << "port argument received" << endl;
-    //            };
-    //            return {};
-    //        }
-    //    };
+    message<> m_list { this, "list", "Complete Midi message input",
+        MIN_FUNCTION {
+            int x;
+            unsigned char a;
+            std::vector<unsigned char>  msg {};
+            int length = args.size();
+            cout << "length of list is: " + std::to_string(length) << endl;
+            
+            if(length>1){
+                if ( midiout->isPortOpen() ) {
+                    for (int i=0; i<length; i++) {
+                        x = args[i];
+                        a = static_cast<unsigned char>(x);
+                        msg.push_back(a);
+                    }
+                    try {
+                        midiout->sendMessage(&msg);
+                    }
+                    catch (RtMidiError &error) {
+                        error.printMessage();
+                        cout << "Send MIDI Error" << endl;
+                    }
+                }
+            }
+            return {};
+        }
+    };
     
     //normally we would use this to set up some things, but it doesn't seem to work as advertised at all.
     //dummy is always true, even when its a genuince instance.
@@ -228,8 +291,87 @@ public:
     
 private:
     
+    bool validate_message() {
+        unsigned long status = m4m_message[0];
+        int m_index = m4m_message.size();
+        
+            if (status < 0x80) {    // bad byte, should never happen
+//                    m_index = 0;
+                return false;
+            }
+            if (status < 0xF0) {    // channel message
+                status = status & 0xF0;
+//                    b1 = m_accumulated_midi_message[1];
+//                    b2 = m_accumulated_midi_message[2];
+                switch (status) {
+                    case 0x80:
+                    case 0x90:
+                    case 0xA0:
+                    case 0xB0:
+                    case 0xE0:
+                        if (m_index == 3) {
+//                                m_accumulated_midi_message[1] = b1 & 0x7F;
+//                                m_accumulated_midi_message[2] = b2 & 0x7F;
+                            return true;
+                        }
+                        else
+                            return false;
+                        break;
+                    case 0xD0:
+                    case 0xC0:
+                        if (m_index == 2) {
+//                                m_accumulated_midi_message[1] = b1 & 0x7F;
+                            return true;
+                        }
+                        else
+                            return false;
+                        break;
+                    default:    // should never be here
+                        return false;
+                }
+            }
+            else {
+                switch (status) {
+                    case 0xF0:    // system exclusive
+                        if (m4m_message[m_index-1] == 0xF7)
+                            return true;
+                        return false;
+                    case 0xF1:    // undefined
+                        return true;
+                    case 0xF2:    // song position
+                        if (m_index == 3)
+                            return true;
+                        else
+                            return false;
+                    case 0xF3:    // song select
+                        if (m_index == 2)
+                            return true;
+                        else
+                            return false;
+                    case 0xF4:
+                    case 0xF5:
+                    case 0xF6:
+                    case 0xF8:
+                    case 0xF9:
+                    case 0xFA:
+                    case 0xFB:
+                    case 0xFC:
+                    case 0xFD:
+                    case 0xFE:
+                    case 0xFF:
+                        return true;
+                    case 0xF7:    // bad eox
+                        m_index = 0;
+                        return false;
+                    default:
+                        return false;
+                }
+            }
+            return false;
+        }
+    };
     
-};
+
 
 
 MIN_EXTERNAL(midi4lout);
