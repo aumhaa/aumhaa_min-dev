@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\projects\aumhaa.midi4lout\aumhaa.midi4lout.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RtMidi.cpp" />
+    <ClCompile Include="rtmidi_c.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\projects\aumhaa.midi4lout\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{A9D481CE-82DD-3351-8C65-5A6E286D8BD8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="RtMidi.h" />
+    <ClInclude Include="rtmidi_c.h" />
+  </ItemGroup>
+</Project>

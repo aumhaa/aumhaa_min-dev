@@ -1,0 +1,347 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{A0001B4A-B6E5-3E80-93BF-41FD4F9C19D4}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <Platform>x64</Platform>
+    <ProjectName>aumhaa.midi4lin</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\externals\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">aumhaa.midi4lin.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">aumhaa.midi4lin</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.mxe64</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\externals\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">aumhaa.midi4lin.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">aumhaa.midi4lin</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.mxe64</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\externals\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">aumhaa.midi4lin.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">aumhaa.midi4lin</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.mxe64</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\externals\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">aumhaa.midi4lin.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">aumhaa.midi4lin</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.mxe64</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\script\..\max-api\include;C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\script\..\include;C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\projects\aumhaa.midi4lin\..\..\min-api\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4814</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;_DEBUG;MAXAPI_USE_MSCRT;WIN_VERSION;_USE_MATH_DEFINES;C74_MIN_API;C74_USE_MIN_LIB;MIN_TEST;CMAKE_INTDIR="Debug";aumhaa_midi4lin_EXPORTS</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\projects\aumhaa.midi4lin\tmp\Debug\</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;MAXAPI_USE_MSCRT;WIN_VERSION;_USE_MATH_DEFINES;C74_MIN_API;C74_USE_MIN_LIB;MIN_TEST;CMAKE_INTDIR=\"Debug\";aumhaa_midi4lin_EXPORTS</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\script\..\max-api\include;C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\script\..\include;C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\projects\aumhaa.midi4lin\..\..\min-api\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\script\..\max-api\include;C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\script\..\include;C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\projects\aumhaa.midi4lin\..\..\min-api\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>..\..\min-api\script\..\max-api\lib\win64\MaxAPI.lib;..\..\min-api\script\..\max-api\lib\win64\MaxAudio.lib;..\..\min-api\script\..\max-api\lib\win64\jitlib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;winmm.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/amounra/Documents/Max 8/Packages/aumhaa_min-dev/source/projects/aumhaa.midi4lin/Debug/aumhaa.midi4lin.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/amounra/Documents/Max 8/Packages/aumhaa_min-dev/source/projects/aumhaa.midi4lin/tmp/Debug/aumhaa.midi4lin.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\script\..\max-api\include;C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\script\..\include;C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\projects\aumhaa.midi4lin\..\..\min-api\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <DisableSpecificWarnings>4814</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;MAXAPI_USE_MSCRT;WIN_VERSION;_USE_MATH_DEFINES;C74_MIN_API;C74_USE_MIN_LIB;MIN_TEST;CMAKE_INTDIR="Release";aumhaa_midi4lin_EXPORTS</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ProgramDataBaseFileName>C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\projects\aumhaa.midi4lin\tmp\Release\</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;MAXAPI_USE_MSCRT;WIN_VERSION;_USE_MATH_DEFINES;C74_MIN_API;C74_USE_MIN_LIB;MIN_TEST;CMAKE_INTDIR=\"Release\";aumhaa_midi4lin_EXPORTS</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\script\..\max-api\include;C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\script\..\include;C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\projects\aumhaa.midi4lin\..\..\min-api\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\script\..\max-api\include;C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\script\..\include;C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\projects\aumhaa.midi4lin\..\..\min-api\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>..\..\min-api\script\..\max-api\lib\win64\MaxAPI.lib;..\..\min-api\script\..\max-api\lib\win64\MaxAudio.lib;..\..\min-api\script\..\max-api\lib\win64\jitlib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/amounra/Documents/Max 8/Packages/aumhaa_min-dev/source/projects/aumhaa.midi4lin/Release/aumhaa.midi4lin.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/amounra/Documents/Max 8/Packages/aumhaa_min-dev/source/projects/aumhaa.midi4lin/tmp/Release/aumhaa.midi4lin.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\script\..\max-api\include;C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\script\..\include;C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\projects\aumhaa.midi4lin\..\..\min-api\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <DisableSpecificWarnings>4814</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;MAXAPI_USE_MSCRT;WIN_VERSION;_USE_MATH_DEFINES;C74_MIN_API;C74_USE_MIN_LIB;MIN_TEST;CMAKE_INTDIR="MinSizeRel";aumhaa_midi4lin_EXPORTS</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ProgramDataBaseFileName>C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\projects\aumhaa.midi4lin\tmp\MinSizeRel\</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;MAXAPI_USE_MSCRT;WIN_VERSION;_USE_MATH_DEFINES;C74_MIN_API;C74_USE_MIN_LIB;MIN_TEST;CMAKE_INTDIR=\"MinSizeRel\";aumhaa_midi4lin_EXPORTS</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\script\..\max-api\include;C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\script\..\include;C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\projects\aumhaa.midi4lin\..\..\min-api\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\script\..\max-api\include;C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\script\..\include;C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\projects\aumhaa.midi4lin\..\..\min-api\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>..\..\min-api\script\..\max-api\lib\win64\MaxAPI.lib;..\..\min-api\script\..\max-api\lib\win64\MaxAudio.lib;..\..\min-api\script\..\max-api\lib\win64\jitlib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/amounra/Documents/Max 8/Packages/aumhaa_min-dev/source/projects/aumhaa.midi4lin/MinSizeRel/aumhaa.midi4lin.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/amounra/Documents/Max 8/Packages/aumhaa_min-dev/source/projects/aumhaa.midi4lin/tmp/MinSizeRel/aumhaa.midi4lin.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\script\..\max-api\include;C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\script\..\include;C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\projects\aumhaa.midi4lin\..\..\min-api\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4814</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;MAXAPI_USE_MSCRT;WIN_VERSION;_USE_MATH_DEFINES;C74_MIN_API;C74_USE_MIN_LIB;MIN_TEST;CMAKE_INTDIR="RelWithDebInfo";aumhaa_midi4lin_EXPORTS</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\projects\aumhaa.midi4lin\tmp\RelWithDebInfo\</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;MAXAPI_USE_MSCRT;WIN_VERSION;_USE_MATH_DEFINES;C74_MIN_API;C74_USE_MIN_LIB;MIN_TEST;CMAKE_INTDIR=\"RelWithDebInfo\";aumhaa_midi4lin_EXPORTS</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\script\..\max-api\include;C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\script\..\include;C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\projects\aumhaa.midi4lin\..\..\min-api\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\script\..\max-api\include;C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\script\..\include;C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\projects\aumhaa.midi4lin\..\..\min-api\test;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>..\..\min-api\script\..\max-api\lib\win64\MaxAPI.lib;..\..\min-api\script\..\max-api\lib\win64\MaxAudio.lib;..\..\min-api\script\..\max-api\lib\win64\jitlib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/amounra/Documents/Max 8/Packages/aumhaa_min-dev/source/projects/aumhaa.midi4lin/RelWithDebInfo/aumhaa.midi4lin.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/amounra/Documents/Max 8/Packages/aumhaa_min-dev/source/projects/aumhaa.midi4lin/tmp/RelWithDebInfo/aumhaa.midi4lin.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\projects\aumhaa.midi4lin\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/amounra/Documents/Max 8/Packages/aumhaa_min-dev/source/projects/aumhaa.midi4lin/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/amounra/Documents/Max 8/Packages/aumhaa_min-dev" "-BC:/Users/amounra/Documents/Max 8/Packages/aumhaa_min-dev" --check-stamp-file "C:/Users/amounra/Documents/Max 8/Packages/aumhaa_min-dev/source/projects/aumhaa.midi4lin/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\max-api\script\max-posttarget.cmake;C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\max-api\script\max-pretarget.cmake;C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\script\min-posttarget.cmake;C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\script\min-pretarget.cmake;C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\test\min-object-unittest.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\projects\aumhaa.midi4lin\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/amounra/Documents/Max 8/Packages/aumhaa_min-dev/source/projects/aumhaa.midi4lin/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/amounra/Documents/Max 8/Packages/aumhaa_min-dev" "-BC:/Users/amounra/Documents/Max 8/Packages/aumhaa_min-dev" --check-stamp-file "C:/Users/amounra/Documents/Max 8/Packages/aumhaa_min-dev/source/projects/aumhaa.midi4lin/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\max-api\script\max-posttarget.cmake;C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\max-api\script\max-pretarget.cmake;C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\script\min-posttarget.cmake;C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\script\min-pretarget.cmake;C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\test\min-object-unittest.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\projects\aumhaa.midi4lin\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/Users/amounra/Documents/Max 8/Packages/aumhaa_min-dev/source/projects/aumhaa.midi4lin/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/amounra/Documents/Max 8/Packages/aumhaa_min-dev" "-BC:/Users/amounra/Documents/Max 8/Packages/aumhaa_min-dev" --check-stamp-file "C:/Users/amounra/Documents/Max 8/Packages/aumhaa_min-dev/source/projects/aumhaa.midi4lin/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\max-api\script\max-posttarget.cmake;C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\max-api\script\max-pretarget.cmake;C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\script\min-posttarget.cmake;C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\script\min-pretarget.cmake;C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\test\min-object-unittest.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\projects\aumhaa.midi4lin\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/Users/amounra/Documents/Max 8/Packages/aumhaa_min-dev/source/projects/aumhaa.midi4lin/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/amounra/Documents/Max 8/Packages/aumhaa_min-dev" "-BC:/Users/amounra/Documents/Max 8/Packages/aumhaa_min-dev" --check-stamp-file "C:/Users/amounra/Documents/Max 8/Packages/aumhaa_min-dev/source/projects/aumhaa.midi4lin/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\max-api\script\max-posttarget.cmake;C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\max-api\script\max-pretarget.cmake;C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\script\min-posttarget.cmake;C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\script\min-pretarget.cmake;C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\min-api\test\min-object-unittest.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\projects\aumhaa.midi4lin\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\source\projects\aumhaa.midi4lin\aumhaa.midi4lin.cpp" />
+    <ClCompile Include="RtMidi.cpp" />
+    <ClCompile Include="rtmidi_c.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:\Users\amounra\Documents\Max 8\Packages\aumhaa_min-dev\ZERO_CHECK.vcxproj">
+      <Project>{0F260697-53CD-32D6-8229-90E35DF28031}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="RtMidi.h" />
+    <ClInclude Include="rtmidi_c.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="aumhaa.midi4lin.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
