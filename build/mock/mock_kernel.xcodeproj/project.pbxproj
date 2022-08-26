@@ -9,7 +9,7 @@
 /* Begin PBXAggregateTarget section */
 		1B3D1F45FA7548AC825E091C /* RUN_TESTS */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = E9679C58D6524D03AF96CA97 /* Build configuration list for PBXAggregateTarget "RUN_TESTS" */;
+			buildConfigurationList = 4923F7E3627346109C1AC02B /* Build configuration list for PBXAggregateTarget "RUN_TESTS" */;
 			buildPhases = (
 				003C8D08B0008F35F218E126 /* CMake PostBuild Rules */,
 			);
@@ -20,7 +20,7 @@
 		};
 		3D333E8B718E4771B0C57BD4 /* ZERO_CHECK */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 2D3754DF246C49AFB68EDD9C /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
+			buildConfigurationList = B246B6826EA94062977AB822 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
 			buildPhases = (
 				B402F0533E41CF448BD6B47F /* Generate CMakeFiles/ZERO_CHECK */,
 			);
@@ -31,13 +31,13 @@
 		};
 		8B1C558CF4514535BB9A7984 /* ALL_BUILD */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 472FF9B44FE94685907ED91A /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
+			buildConfigurationList = A4EF90C88BDE4A8186B09370 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
 			buildPhases = (
 				A3A935D49EBF738C63A1B2C8 /* Generate CMakeFiles/ALL_BUILD */,
 			);
 			dependencies = (
-				1BDF69DCBCA94799A4D21C02 /* PBXTargetDependency */,
-				0554F5D7D5084B4291AF7086 /* PBXTargetDependency */,
+				3C5180160D9E48CDB04D7EAA /* PBXTargetDependency */,
+				12E8C9248705406083B516C7 /* PBXTargetDependency */,
 			);
 			name = ALL_BUILD;
 			productName = ALL_BUILD;
@@ -45,33 +45,33 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		11434B6EA9E84D9C9F3EA4BA /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/test/mock/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = E99B14EFA4DD4D3989E48D14 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/test/mock/CMakeLists.txt */; };
-		99C9221D98B7447E8FD2D75F /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/test/mock/c74_mock.cpp */ = {isa = PBXBuildFile; fileRef = 956812FE38C047DD9CFFBE64 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/test/mock/c74_mock.cpp */; };
+		064D0A04E60A4569B2DEC052 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/test/mock/c74_mock.cpp */ = {isa = PBXBuildFile; fileRef = 86CE722260CE45C79FAC0BF5 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/test/mock/c74_mock.cpp */; };
+		EDF8FC3F618C4FD79010FE88 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/test/mock/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = 6A39075300D24B69A4D78A6F /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/test/mock/CMakeLists.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildStyle section */
-		1C05BAFCF0814D68A2C5E95A /* Debug */ = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-			};
-			name = Debug;
-		};
-		2E2757FDF288444B9ACD4E1A /* MinSizeRel */ = {
+		41F631B0ACD143448B600981 /* MinSizeRel */ = {
 			isa = PBXBuildStyle;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 			};
 			name = MinSizeRel;
 		};
-		CC47221BAE6844E3B0B88F81 /* Release */ = {
+		5C56CB3709E0485CA638D275 /* Release */ = {
 			isa = PBXBuildStyle;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 			};
 			name = Release;
 		};
-		EA5532454C78465085775AC7 /* RelWithDebInfo */ = {
+		F8ADC624D94741C292A59916 /* Debug */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = Debug;
+		};
+		FEE4F6D0194A40B7947FE299 /* RelWithDebInfo */ = {
 			isa = PBXBuildStyle;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
@@ -81,21 +81,21 @@
 /* End PBXBuildStyle section */
 
 /* Begin PBXContainerItemProxy section */
-		4AE8B336D7AA4015A82F0AE4 /* PBXContainerItemProxy */ = {
+		766A382B80C4440796CB719C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3D93E0E1C9444271A191D67C /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 3D333E8B718E4771B0C57BD4;
 			remoteInfo = ZERO_CHECK;
 		};
-		BCB9AD0E1FCA408292E48D67 /* PBXContainerItemProxy */ = {
+		7D6FB0C41C8E481F81CE4AEC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3D93E0E1C9444271A191D67C /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 3D333E8B718E4771B0C57BD4;
 			remoteInfo = ZERO_CHECK;
 		};
-		F18F657DE71843649FC04A09 /* PBXContainerItemProxy */ = {
+		D0FE169E05F54EEFBE4474E5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3D93E0E1C9444271A191D67C /* Project object */;
 			proxyType = 1;
@@ -105,14 +105,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		268C886AE1EF4FB0B68B22F6 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/test/mock/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
-		956812FE38C047DD9CFFBE64 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/test/mock/c74_mock.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = c74_mock.cpp; path = c74_mock.cpp; sourceTree = SOURCE_ROOT; };
-		C6E62A56FED14BB98EDE6878 /* mock_kernel */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; path = libmock_kernel.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
-		E99B14EFA4DD4D3989E48D14 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/test/mock/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		14B78939DDAC49DBBBD831DB /* mock_kernel */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; path = libmock_kernel.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		25721BAE5F1D4111B7F0363D /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/test/mock/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		6A39075300D24B69A4D78A6F /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/test/mock/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		86CE722260CE45C79FAC0BF5 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/test/mock/c74_mock.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = c74_mock.cpp; path = c74_mock.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		E0BAA5F24EF945A5BFEABEFB /* Frameworks */ = {
+		8745BA84BC2145898994473A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -122,62 +122,62 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		15A975714CEA4684A0B491CC /* ALL_BUILD */ = {
-			isa = PBXGroup;
-			children = (
-				975A66356EC14294B38A5026 /* CMake Rules */,
-				268C886AE1EF4FB0B68B22F6 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/test/mock/CMakeLists.txt */,
-			);
-			name = ALL_BUILD;
-			sourceTree = "<group>";
-		};
-		4F3EBE97C63C4C4B986C553E /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		650320C8369A4FF498492A17 /* mock_kernel */ = {
-			isa = PBXGroup;
-			children = (
-				EFA53861F2A24E3B9DDD63A2 /* Source Files */,
-				E99B14EFA4DD4D3989E48D14 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/test/mock/CMakeLists.txt */,
-			);
-			name = mock_kernel;
-			sourceTree = "<group>";
-		};
-		662DBCE044F7498AA7F6A632 = {
-			isa = PBXGroup;
-			children = (
-				650320C8369A4FF498492A17 /* mock_kernel */,
-				15A975714CEA4684A0B491CC /* ALL_BUILD */,
-				91985B05A86141518699B3E0 /* Products */,
-				4F3EBE97C63C4C4B986C553E /* Frameworks */,
-			);
-			sourceTree = "<group>";
-		};
-		91985B05A86141518699B3E0 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				C6E62A56FED14BB98EDE6878 /* mock_kernel */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		975A66356EC14294B38A5026 /* CMake Rules */ = {
+		08D52728DC10450990616AA3 /* CMake Rules */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = "CMake Rules";
 			sourceTree = "<group>";
 		};
-		EFA53861F2A24E3B9DDD63A2 /* Source Files */ = {
+		094E52BB81E14D03ACF2E3E9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				956812FE38C047DD9CFFBE64 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/test/mock/c74_mock.cpp */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		11EED6BEF319471781F719FB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				14B78939DDAC49DBBBD831DB /* mock_kernel */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		400937D7C703492FB28D93D3 = {
+			isa = PBXGroup;
+			children = (
+				AE4309D66C8A4F3A84D80163 /* mock_kernel */,
+				EE3CE13AD5FA4F5FA1DCC916 /* ALL_BUILD */,
+				11EED6BEF319471781F719FB /* Products */,
+				094E52BB81E14D03ACF2E3E9 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		A8FE73BCA0FF479C9CB60842 /* Source Files */ = {
+			isa = PBXGroup;
+			children = (
+				86CE722260CE45C79FAC0BF5 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/test/mock/c74_mock.cpp */,
 			);
 			name = "Source Files";
+			sourceTree = "<group>";
+		};
+		AE4309D66C8A4F3A84D80163 /* mock_kernel */ = {
+			isa = PBXGroup;
+			children = (
+				A8FE73BCA0FF479C9CB60842 /* Source Files */,
+				6A39075300D24B69A4D78A6F /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/test/mock/CMakeLists.txt */,
+			);
+			name = mock_kernel;
+			sourceTree = "<group>";
+		};
+		EE3CE13AD5FA4F5FA1DCC916 /* ALL_BUILD */ = {
+			isa = PBXGroup;
+			children = (
+				08D52728DC10450990616AA3 /* CMake Rules */,
+				25721BAE5F1D4111B7F0363D /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/test/mock/CMakeLists.txt */,
+			);
+			name = ALL_BUILD;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -185,20 +185,20 @@
 /* Begin PBXNativeTarget section */
 		4CF2A6A370254B0F89042405 /* mock_kernel */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3133AD917FFF4043AD86C98B /* Build configuration list for PBXNativeTarget "mock_kernel" */;
+			buildConfigurationList = 524457C451FF4A62956062C2 /* Build configuration list for PBXNativeTarget "mock_kernel" */;
 			buildPhases = (
-				C6448362BDB24DF7B21CA90D /* Sources */,
-				E0BAA5F24EF945A5BFEABEFB /* Frameworks */,
+				2E12DFB566AB4CED9843BD12 /* Sources */,
+				8745BA84BC2145898994473A /* Frameworks */,
 				7485A7C439C294BDC63B9ACE /* CMake PostBuild Rules */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				6FA2AAF659D04A67BC6010A0 /* PBXTargetDependency */,
+				D497689E2B7645E2AE764F7D /* PBXTargetDependency */,
 			);
 			name = mock_kernel;
 			productName = mock_kernel;
-			productReference = C6E62A56FED14BB98EDE6878 /* mock_kernel */;
+			productReference = 14B78939DDAC49DBBBD831DB /* mock_kernel */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 /* End PBXNativeTarget section */
@@ -210,18 +210,18 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1340;
 			};
-			buildConfigurationList = 5724F167F0324015AD0CE775 /* Build configuration list for PBXProject "mock_kernel" */;
+			buildConfigurationList = 62EC3576BD61477BB55520DB /* Build configuration list for PBXProject "mock_kernel" */;
 			buildSettings = {
 			};
 			buildStyles = (
-				1C05BAFCF0814D68A2C5E95A /* Debug */,
-				CC47221BAE6844E3B0B88F81 /* Release */,
-				2E2757FDF288444B9ACD4E1A /* MinSizeRel */,
-				EA5532454C78465085775AC7 /* RelWithDebInfo */,
+				F8ADC624D94741C292A59916 /* Debug */,
+				5C56CB3709E0485CA638D275 /* Release */,
+				41F631B0ACD143448B600981 /* MinSizeRel */,
+				FEE4F6D0194A40B7947FE299 /* RelWithDebInfo */,
 			);
 			compatibilityVersion = "Xcode 3.2";
 			hasScannedForEncodings = 0;
-			mainGroup = 662DBCE044F7498AA7F6A632;
+			mainGroup = 400937D7C703492FB28D93D3;
 			projectDirPath = "../../source/min-api/test/mock";
 			projectRoot = "";
 			targets = (
@@ -410,46 +410,58 @@ fi
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		C6448362BDB24DF7B21CA90D /* Sources */ = {
+		2E12DFB566AB4CED9843BD12 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				99C9221D98B7447E8FD2D75F /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/test/mock/c74_mock.cpp */,
+				064D0A04E60A4569B2DEC052 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/test/mock/c74_mock.cpp */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		0554F5D7D5084B4291AF7086 /* PBXTargetDependency */ = {
+		12E8C9248705406083B516C7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 3D333E8B718E4771B0C57BD4 /* ZERO_CHECK */;
-			targetProxy = BCB9AD0E1FCA408292E48D67 /* PBXContainerItemProxy */;
+			targetProxy = 7D6FB0C41C8E481F81CE4AEC /* PBXContainerItemProxy */;
 		};
-		1BDF69DCBCA94799A4D21C02 /* PBXTargetDependency */ = {
+		3C5180160D9E48CDB04D7EAA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4CF2A6A370254B0F89042405 /* mock_kernel */;
-			targetProxy = F18F657DE71843649FC04A09 /* PBXContainerItemProxy */;
+			targetProxy = D0FE169E05F54EEFBE4474E5 /* PBXContainerItemProxy */;
 		};
-		6FA2AAF659D04A67BC6010A0 /* PBXTargetDependency */ = {
+		D497689E2B7645E2AE764F7D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 3D333E8B718E4771B0C57BD4 /* ZERO_CHECK */;
-			targetProxy = 4AE8B336D7AA4015A82F0AE4 /* PBXContainerItemProxy */;
+			targetProxy = 766A382B80C4440796CB719C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		16BBF6493A4A413D9717485C /* RelWithDebInfo */ = {
+		194ABD6B598B419A9249C933 /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = x86_64;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk;
-				SYMROOT = "/Users/amounra/Documents/Max 8/Packages/aumhaa/build/mock/build";
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = ("","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/amounra/Documents/Max 8/Packages/aumhaa/build/mock";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
 			};
 			name = RelWithDebInfo;
 		};
-		2A9128DA3BF848E9AC0C1B71 /* Debug */ = {
+		26DC18ABFDC142DCB7B91D71 /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = x86_64;
@@ -469,9 +481,31 @@ fi
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = ("$(inherited)");
 			};
-			name = Debug;
+			name = MinSizeRel;
 		};
-		3241602836E54F74B068EF27 /* MinSizeRel */ = {
+		27E1BE918D1D4DEC94C57F35 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = ("","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/amounra/Documents/Max 8/Packages/aumhaa/build/mock";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Release;
+		};
+		45310EBD6D6446679B5B9981 /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = x86_64;
@@ -501,95 +535,7 @@ fi
 			};
 			name = MinSizeRel;
 		};
-		389CF1F42F62441792616702 /* RelWithDebInfo */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = x86_64;
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = ("","$(inherited)");
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ZERO_CHECK;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "/Users/amounra/Documents/Max 8/Packages/aumhaa/build/mock";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("$(inherited)");
-			};
-			name = RelWithDebInfo;
-		};
-		39C5C4904A624B5AB4A679E7 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = x86_64;
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = ("","$(inherited)");
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ZERO_CHECK;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "/Users/amounra/Documents/Max 8/Packages/aumhaa/build/mock";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("$(inherited)");
-			};
-			name = Release;
-		};
-		3C1FD13CD0FF4CE19A7E5210 /* MinSizeRel */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = x86_64;
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = ("","$(inherited)");
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ZERO_CHECK;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "/Users/amounra/Documents/Max 8/Packages/aumhaa/build/mock";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("$(inherited)");
-			};
-			name = MinSizeRel;
-		};
-		410A45233638479FB012B5B6 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = x86_64;
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = ("","$(inherited)");
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ZERO_CHECK;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "/Users/amounra/Documents/Max 8/Packages/aumhaa/build/mock";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("$(inherited)");
-			};
-			name = Debug;
-		};
-		58F89D2598C34BB78AA39241 /* MinSizeRel */ = {
+		4B61382FABC544C481BA8E6B /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = x86_64;
@@ -611,7 +557,105 @@ fi
 			};
 			name = MinSizeRel;
 		};
-		5B2001C0CABC4CC7915739E7 /* RelWithDebInfo */ = {
+		61135E58130748B99B284307 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = ("","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = RUN_TESTS;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/amounra/Documents/Max 8/Packages/aumhaa/build/mock";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Release;
+		};
+		6A3F7249651247F8BA11367A /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = ("","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/amounra/Documents/Max 8/Packages/aumhaa/build/mock";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		73B30B33C9074A6E9C4D7E0C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = ("","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/amounra/Documents/Max 8/Packages/aumhaa/build/mock";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Debug;
+		};
+		783144B7EE7240ED80E744AB /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = ("","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = RUN_TESTS;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/amounra/Documents/Max 8/Packages/aumhaa/build/mock";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		7FF75408A27E44BC8E12FDDC /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk;
+				SYMROOT = "/Users/amounra/Documents/Max 8/Packages/aumhaa/build/mock/build";
+			};
+			name = MinSizeRel;
+		};
+		8C1CBC4B1FA04B54A7BFF339 /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = x86_64;
@@ -641,17 +685,7 @@ fi
 			};
 			name = RelWithDebInfo;
 		};
-		665680814192411281D0B50C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = x86_64;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk;
-				SYMROOT = "/Users/amounra/Documents/Max 8/Packages/aumhaa/build/mock/build";
-			};
-			name = Release;
-		};
-		6FCE2E433AC54351B85A0B0B /* Debug */ = {
+		8E9226A247B04E52AE6C5D39 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = x86_64;
@@ -681,7 +715,29 @@ fi
 			};
 			name = Debug;
 		};
-		7991BBAF82734C2283E7DA02 /* Debug */ = {
+		9BDC94FC3BFF490EAACF8AF9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = ("","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/amounra/Documents/Max 8/Packages/aumhaa/build/mock";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Release;
+		};
+		9D725116EB4F4786979AE9EA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = x86_64;
@@ -691,7 +747,7 @@ fi
 			};
 			name = Debug;
 		};
-		8A48DA87C3A746B0A657540F /* Release */ = {
+		A13E10DC422D468BB9B3958F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = x86_64;
@@ -721,7 +777,7 @@ fi
 			};
 			name = Release;
 		};
-		9951314E06E54A5D90FF0CFE /* Debug */ = {
+		A1E6D7473B4140B1915925B0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = x86_64;
@@ -735,7 +791,7 @@ fi
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = ("","$(inherited)");
 				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ALL_BUILD;
+				PRODUCT_NAME = ZERO_CHECK;
 				SECTORDER_FLAGS = "";
 				SYMROOT = "/Users/amounra/Documents/Max 8/Packages/aumhaa/build/mock";
 				USE_HEADERMAP = NO;
@@ -743,73 +799,7 @@ fi
 			};
 			name = Debug;
 		};
-		A1D000B3957A484C9C7CBD00 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = x86_64;
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = ("","$(inherited)");
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = RUN_TESTS;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "/Users/amounra/Documents/Max 8/Packages/aumhaa/build/mock";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("$(inherited)");
-			};
-			name = Release;
-		};
-		A93FA63139524C2F83D8DA1A /* RelWithDebInfo */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = x86_64;
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = ("","$(inherited)");
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ALL_BUILD;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "/Users/amounra/Documents/Max 8/Packages/aumhaa/build/mock";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("$(inherited)");
-			};
-			name = RelWithDebInfo;
-		};
-		B4994BC5E93C42CEB2B765DE /* MinSizeRel */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = x86_64;
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = ("","$(inherited)");
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = RUN_TESTS;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "/Users/amounra/Documents/Max 8/Packages/aumhaa/build/mock";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("$(inherited)");
-			};
-			name = MinSizeRel;
-		};
-		B846A2468B624379BE5137B4 /* MinSizeRel */ = {
+		AEB0DD139C674675B17689EC /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = x86_64;
@@ -817,9 +807,19 @@ fi
 				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk;
 				SYMROOT = "/Users/amounra/Documents/Max 8/Packages/aumhaa/build/mock/build";
 			};
-			name = MinSizeRel;
+			name = RelWithDebInfo;
 		};
-		C5412232849F4A8F913D883D /* RelWithDebInfo */ = {
+		D63CF82158E84A91974E2C5F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk;
+				SYMROOT = "/Users/amounra/Documents/Max 8/Packages/aumhaa/build/mock/build";
+			};
+			name = Release;
+		};
+		DD3EF80D240D4E59B20CE97B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = x86_64;
@@ -839,9 +839,9 @@ fi
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = ("$(inherited)");
 			};
-			name = RelWithDebInfo;
+			name = Debug;
 		};
-		E2620743A9C048288CCD5CE5 /* Release */ = {
+		F4E0408B120343748DE24392 /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = x86_64;
@@ -861,62 +861,62 @@ fi
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = ("$(inherited)");
 			};
-			name = Release;
+			name = RelWithDebInfo;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2D3754DF246C49AFB68EDD9C /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
+		4923F7E3627346109C1AC02B /* Build configuration list for PBXAggregateTarget "RUN_TESTS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				410A45233638479FB012B5B6 /* Debug */,
-				39C5C4904A624B5AB4A679E7 /* Release */,
-				3C1FD13CD0FF4CE19A7E5210 /* MinSizeRel */,
-				389CF1F42F62441792616702 /* RelWithDebInfo */,
+				DD3EF80D240D4E59B20CE97B /* Debug */,
+				61135E58130748B99B284307 /* Release */,
+				26DC18ABFDC142DCB7B91D71 /* MinSizeRel */,
+				783144B7EE7240ED80E744AB /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		3133AD917FFF4043AD86C98B /* Build configuration list for PBXNativeTarget "mock_kernel" */ = {
+		524457C451FF4A62956062C2 /* Build configuration list for PBXNativeTarget "mock_kernel" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				6FCE2E433AC54351B85A0B0B /* Debug */,
-				8A48DA87C3A746B0A657540F /* Release */,
-				3241602836E54F74B068EF27 /* MinSizeRel */,
-				5B2001C0CABC4CC7915739E7 /* RelWithDebInfo */,
+				8E9226A247B04E52AE6C5D39 /* Debug */,
+				A13E10DC422D468BB9B3958F /* Release */,
+				45310EBD6D6446679B5B9981 /* MinSizeRel */,
+				8C1CBC4B1FA04B54A7BFF339 /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		472FF9B44FE94685907ED91A /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
+		62EC3576BD61477BB55520DB /* Build configuration list for PBXProject "mock_kernel" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				9951314E06E54A5D90FF0CFE /* Debug */,
-				E2620743A9C048288CCD5CE5 /* Release */,
-				58F89D2598C34BB78AA39241 /* MinSizeRel */,
-				A93FA63139524C2F83D8DA1A /* RelWithDebInfo */,
+				9D725116EB4F4786979AE9EA /* Debug */,
+				D63CF82158E84A91974E2C5F /* Release */,
+				7FF75408A27E44BC8E12FDDC /* MinSizeRel */,
+				AEB0DD139C674675B17689EC /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		5724F167F0324015AD0CE775 /* Build configuration list for PBXProject "mock_kernel" */ = {
+		A4EF90C88BDE4A8186B09370 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7991BBAF82734C2283E7DA02 /* Debug */,
-				665680814192411281D0B50C /* Release */,
-				B846A2468B624379BE5137B4 /* MinSizeRel */,
-				16BBF6493A4A413D9717485C /* RelWithDebInfo */,
+				73B30B33C9074A6E9C4D7E0C /* Debug */,
+				9BDC94FC3BFF490EAACF8AF9 /* Release */,
+				4B61382FABC544C481BA8E6B /* MinSizeRel */,
+				F4E0408B120343748DE24392 /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		E9679C58D6524D03AF96CA97 /* Build configuration list for PBXAggregateTarget "RUN_TESTS" */ = {
+		B246B6826EA94062977AB822 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2A9128DA3BF848E9AC0C1B71 /* Debug */,
-				A1D000B3957A484C9C7CBD00 /* Release */,
-				B4994BC5E93C42CEB2B765DE /* MinSizeRel */,
-				C5412232849F4A8F913D883D /* RelWithDebInfo */,
+				A1E6D7473B4140B1915925B0 /* Debug */,
+				27E1BE918D1D4DEC94C57F35 /* Release */,
+				6A3F7249651247F8BA11367A /* MinSizeRel */,
+				194ABD6B598B419A9249C933 /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
