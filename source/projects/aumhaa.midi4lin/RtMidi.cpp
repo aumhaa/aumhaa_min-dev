@@ -36,6 +36,7 @@
     WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 /**********************************************************************/
+#define __MACOSX_CORE__
 
 #include "RtMidi.h"
 #include <sstream>
