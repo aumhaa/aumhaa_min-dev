@@ -19,6 +19,12 @@ namespace max {
 		double height;    ///< The height
 	};
 
+    struct t_jrgba {
+		double red;      ///< Red component in the range [0.0, 1.0]
+		double green;    ///< Green component in the range [0.0, 1.0]
+		double blue;
+		double alpha;    ///< Alpha (transparency) component in the range [0.0, 1.0]
+	};
 
 
     MOCK_EXPORT void class_dspinitjbox(t_class* c) {}
@@ -41,6 +47,10 @@ namespace max {
 		return nullptr;
     }
 
+    using t_jmouse_cursortype = int;
+
+    MOCK_EXPORT void jmouse_setcursor(t_object* patcherview, t_object* box, t_jmouse_cursortype type) {}
+    MOCK_EXPORT void jmouse_setposition_box(t_object* patcherview, t_object* box, double bx, double by) {}
 
 
 }}

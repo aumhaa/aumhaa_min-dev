@@ -20,7 +20,7 @@ namespace c74::min {
         path() {}
 
         // path initialized to a system directory
-        path(system initial)
+        path(const system initial)
         : m_directory { true } {
             switch (initial) {
                 case system::application:
@@ -43,15 +43,15 @@ namespace c74::min {
 
 
         // path initialized to a user-supplied path id (discouraged, but might be provided by legacy Max API)
-        path(short path_id)
+        path(const short path_id)
         : m_path        { path_id }
         , m_directory   { true }
         {}
 
 
         // path initialized by name
-        path(const std::string& name, filetype type = filetype::any, bool create = false) {
-            strncpy(m_filename, name.c_str(), MAX_PATH_CHARS);
+        path(const std::string& name, const filetype type = filetype::any, const bool create = false) {
+            strncpy(m_filename, name.c_str(), max::MAX_PATH_CHARS);
 
             auto           types = typelist(type);
             max::t_fourcc* first_type { nullptr };
@@ -65,8 +65,8 @@ namespace c74::min {
             if (err) {
                 if (create) {
                     if (type == filetype::folder) {
-                        char fullpath[MAX_PATH_CHARS];
-                        char filename[MAX_FILENAME_CHARS];
+                        char fullpath[max::MAX_PATH_CHARS];
+                        char filename[max::MAX_FILENAME_CHARS];
                         max::path_nameconform(name.c_str(), fullpath, max::PATH_STYLE_MAX, max::PATH_TYPE_ABSOLUTE);
 
                         char* foldername         = strrchr(fullpath, '/');
@@ -109,7 +109,7 @@ namespace c74::min {
         }
 
 
-        path(const atoms& optional_name, filetype type = filetype::any) {
+        path(const atoms& optional_name, const filetype type = filetype::any) {
             if (!optional_name.empty())
                 *this = path(static_cast<string>(optional_name[0]));
             else {
@@ -121,7 +121,7 @@ namespace c74::min {
         }
 
 
-        std::vector<max::t_fourcc> typelist(filetype type) {
+        std::vector<max::t_fourcc> typelist(const filetype type) {
             std::vector<max::t_fourcc> list;
             max::t_fourcc              types[max::TYPELIST_SIZE];
             short                      type_count = 0;
@@ -154,7 +154,7 @@ namespace c74::min {
 
 
         operator string() const {
-            char pathname[MAX_PATH_CHARS];
+            char pathname[max::MAX_PATH_CHARS];
 
             max::path_toabsolutesystempath(m_path, m_filename, pathname);
             std::string s = pathname;
@@ -186,13 +186,13 @@ namespace c74::min {
 
         using enumerate_function = std::function<void(string)>;
 
-        void enumerate(filetype a_type, enumerate_function a_callback) {
+        void enumerate(const filetype a_type, const enumerate_function a_callback) {
             if (!m_directory)
                 return;
             if (!m_path)
                 return;
 
-            char fullpath_to_this_folder[MAX_PATH_CHARS];
+            char fullpath_to_this_folder[max::MAX_PATH_CHARS];
             max::path_topathname(m_path, m_filename, fullpath_to_this_folder);
             // TODO: error checking
 
@@ -225,9 +225,9 @@ namespace c74::min {
         }
 
 
-        string name() {
+        string name() const {
             if (m_directory) {
-                char pathname[MAX_PATH_CHARS];
+                char pathname[max::MAX_PATH_CHARS];
                 max::path_toabsolutesystempath(m_path, m_filename, pathname);
                 char* last = strrchr(pathname, '/') + 1;
                 return last;
@@ -250,7 +250,7 @@ namespace c74::min {
 
     private:
         short         m_path                     {};
-        char          m_filename[MAX_PATH_CHARS] {};
+        char          m_filename[max::MAX_PATH_CHARS] {};
         max::t_fourcc m_type                     {};
         bool          m_directory                {};
     };

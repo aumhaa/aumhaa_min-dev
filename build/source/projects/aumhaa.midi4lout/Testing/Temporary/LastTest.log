@@ -1,0 +1,19 @@
+Start testing: Aug 17 02:29 PDT
+----------------------------------------------------------
+Unable to find executable: /Users/amounra/Documents/Max 8/Packages/aumhaa/tests/aumhaa.midi4lout_test
+1/1 Testing: aumhaa.midi4lout_test
+1/1 Test: aumhaa.midi4lout_test
+Command: ""
+Directory: /Users/amounra/Documents/Max 8/Packages/aumhaa/build/source/projects/aumhaa.midi4lout
+"aumhaa.midi4lout_test" start time: 
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"aumhaa.midi4lout_test" end time: Aug 17 02:29 PDT
+"aumhaa.midi4lout_test" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Aug 17 02:29 PDT

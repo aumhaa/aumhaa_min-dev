@@ -32,9 +32,10 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
   set(CMAKE_CROSSCOMPILING "FALSE")
 endif()
 
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for each subdirectory.
-  include("/Users/amounra/Documents/Max 8/Packages/aumhaa/build/source/min-api/test/mock/cmake_install.cmake")
-
+# Set default install directory permissions.
+if(NOT DEFINED CMAKE_OBJDUMP)
+  set(CMAKE_OBJDUMP "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/objdump")
 endif()
+
+set(CMAKE_BINARY_DIR "/Users/amounra/Documents/Max 8/Packages/aumhaa/build")
 

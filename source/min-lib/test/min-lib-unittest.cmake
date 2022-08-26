@@ -22,19 +22,17 @@ add_definitions(
 #set(CMAKE_C_FLAGS "-fprofile-arcs -ftest-coverage")
 #SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fprofile-arcs -ftest-coverage")
 
-if (APPLE)
-	#set(CMAKE_OSX_ARCHITECTURES x86_64;i386)
-	set(CMAKE_OSX_ARCHITECTURES x86_64)
-endif ()
-
 add_executable(${PROJECT_NAME} ${PROJECT_NAME}.cpp)
 
 target_link_libraries(${PROJECT_NAME} PUBLIC "mock_kernel")
 
 
 if (APPLE)
-	set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "-Wl,-F'${C74_MAX_API_DIR}/lib/mac', -weak_framework JitterAPI")
-    
+	set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS 
+		"-Wl,-F'${MAX_SDK_MSP_INCLUDES}', -weak_framework MaxAudioAPI, -Wl,-F'${MAX_SDK_JIT_INCLUDES}', -weak_framework JitterAPI"
+	)
+    target_compile_options(${PROJECT_NAME} PRIVATE -DCATCH_CONFIG_NO_CPP17_UNCAUGHT_EXCEPTIONS)
+
     # The build dir won't be present the first time the test is compiled.
     # This isn't a problem but it does generate linker warnings about the folder not existing.
     # So we create the folder in advance.

@@ -32,6 +32,13 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
   set(CMAKE_CROSSCOMPILING "FALSE")
 endif()
 
+# Set default install directory permissions.
+if(NOT DEFINED CMAKE_OBJDUMP)
+  set(CMAKE_OBJDUMP "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/objdump")
+endif()
+
+set(CMAKE_BINARY_DIR "/Users/amounra/Documents/Max 8/Packages/aumhaa/build")
+
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/Users/amounra/Documents/Max 8/Packages/aumhaa/build/source/min-api/cmake_install.cmake")
@@ -39,6 +46,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/Users/amounra/Documents/Max 8/Packages/aumhaa/build/source/projects/aumhaa.hello-world/cmake_install.cmake")
   include("/Users/amounra/Documents/Max 8/Packages/aumhaa/build/source/projects/aumhaa.midi4lin/cmake_install.cmake")
   include("/Users/amounra/Documents/Max 8/Packages/aumhaa/build/source/projects/aumhaa.midi4lout/cmake_install.cmake")
+  include("/Users/amounra/Documents/Max 8/Packages/aumhaa/build/source/projects/aumhaa.shaderFun/cmake_install.cmake")
 
 endif()
 

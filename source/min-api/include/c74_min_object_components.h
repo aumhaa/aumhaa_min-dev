@@ -85,7 +85,8 @@ namespace c74::min {
         // Inheriting classes can retrieve information from this dictionary using the state() method.
 
         object_base()
-        : m_state{(max::t_dictionary*)k_sym__pound_d, false} {}
+        : m_state { (max::t_dictionary*)k_sym__pound_d, false }
+        {}
 
 
         // Destructor is only called when freeing a min::object<>, and never directly.
@@ -99,19 +100,31 @@ namespace c74::min {
         /// Is this class a Jitter class (e.g. a matrix_operator or gl_operator)?
         /// @return	True if it is. Otherwise false.
 
-        virtual bool is_jitter_class() = 0;
+        virtual bool is_jitter_class() const = 0;
 
 
         /// Is this class a User Interface operator?
         /// @return True if it is. Otherwise false.
 
-        virtual bool is_ui_class() = 0;
+        virtual bool is_ui_class() const = 0;
+
+
+        /// Does this class implement a "mousedragdelta" message?
+        /// @return True if does. Otherwise false.
+
+        virtual bool has_mousedragdelta() const = 0;
+
+
+        /// Can an instance of this class capture the keyboard focus?
+        /// @return True if it can. Otherwise false.
+
+        virtual bool is_focusable() const = 0;
 
 
         /// Is this class assumed to have threadsafe attribute accessors and messages?
         /// @return True if it is. Otherwise false (the default).
 
-        virtual bool is_assumed_threadsafe() = 0;
+        virtual bool is_assumed_threadsafe() const = 0;
 
 
         
@@ -122,19 +135,38 @@ namespace c74::min {
         /// @return The t_object pointer for this object.
 
         operator max::t_object*() const {
-            return maxobj();
+            return const_cast<max::t_object*>(maxobj());
         }
+
+
+        /// Cast this object to it's corresponding t_object pointer as understood by the older C Max API.
+		/// @return The t_object pointer for this object.
+
+		operator const max::t_object *() const {
+			return maxobj();
+		}
 
 
         /// Explicitly fetch this object's corresponding t_object pointer as understood by the older C Max API.
         /// @return The t_object pointer for this object.
 
-        max::t_object* maxobj() const {
+        max::t_object* maxobj() {
             if (m_min_magic == k_magic)
                 return m_maxobj;
             else
                 return nullptr;
         }
+
+
+        /// Explicitly fetch this object's corresponding t_object pointer as understood by the older C Max API.
+		/// @return The t_object pointer for this object.
+
+		const max::t_object* maxobj() const {
+			if (m_min_magic == k_magic)
+				return m_maxobj;
+			else
+				return nullptr;
+		}
 
 
         /// Get a reference to this object's inlets.
@@ -196,7 +228,7 @@ namespace c74::min {
         /// Is this object done being initialized?
         ///	@return	True if it is done with initialization and construction. Otherwise false.
 
-        bool initialized() {
+        bool initialized() const {
             return m_initialized;
         }
 
@@ -214,12 +246,12 @@ namespace c74::min {
         /// Useful in the case where there may be one class with several aliases that modify the behavior (e.g. metro and qmetro).
         /// @return	The name of this class.
 
-        symbol classname() {
+        symbol classname() const {
             return m_classname;
         }
 
 
-        patcher patcher() {
+        min::patcher patcher() {
             max::t_object* p {};
 
             auto err = max::object_obex_lookup(maxobj(), k_sym__pound_p, &p);
@@ -229,7 +261,7 @@ namespace c74::min {
         }
 
 
-        box box() {
+        min::box box() {
             max::t_object* b {};
 
             auto err = max::object_obex_lookup(maxobj(), k_sym__pound_b, &b);
@@ -239,7 +271,7 @@ namespace c74::min {
         }
 
 
-        void attach(max::t_object* o, symbol a_namespace = k_sym_nobox) {
+        void attach(max::t_object* o, const symbol a_namespace = k_sym_nobox) {
             assert(o != nullptr);
             auto err = object_attach_byptr_register(maxobj(), o, a_namespace);
             if (err)
@@ -273,7 +305,7 @@ namespace c74::min {
         ///	@return				True if the object has a message with that name. Otherwise false.
         /// @see				try_call()
 
-        bool has_call(const std::string& name) {
+        bool has_call(const std::string& name) const {
             auto found_message = m_messages.find(name);
             return (found_message != m_messages.end());
         }
@@ -299,10 +331,10 @@ namespace c74::min {
         friend struct minwrap;
 
         template<class min_class_type>
-        friend minwrap<min_class_type>* wrapper_new(max::t_symbol* name, long ac, max::t_atom* av);
+        friend minwrap<min_class_type>* wrapper_new(const max::t_symbol* name, const long ac, const max::t_atom* av);
 
         template<class min_class_type>
-        friend max::t_object* jit_new(max::t_symbol* s);
+        friend max::t_object* jit_new(const max::t_symbol* s);
 
 
         // Internal method called by the wrapper when creating an instance.
@@ -349,7 +381,7 @@ namespace c74::min {
         // was used to create this instance.
         // Useful in the case where there may be one class with several aliases that modify the behavior (e.g. metro and qmetro).
 
-        void set_classname(symbol s) {
+        void set_classname(const symbol s) {
             m_classname = s;
         }
 

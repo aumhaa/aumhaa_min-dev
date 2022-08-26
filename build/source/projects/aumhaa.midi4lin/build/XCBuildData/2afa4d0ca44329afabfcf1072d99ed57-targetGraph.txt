@@ -1,0 +1,11 @@
+Target dependency graph (5 targets)
+ZERO_CHECK in aumhaa.midi4lin, no dependencies
+aumhaa.midi4lin in aumhaa.midi4lin, depends on:
+ZERO_CHECK in aumhaa.midi4lin (explicit)
+aumhaa.midi4lin_test in aumhaa.midi4lin, depends on:
+ZERO_CHECK in aumhaa.midi4lin (explicit)
+ALL_BUILD in aumhaa.midi4lin, depends on:
+aumhaa.midi4lin in aumhaa.midi4lin (explicit)
+aumhaa.midi4lin_test in aumhaa.midi4lin (explicit)
+ZERO_CHECK in aumhaa.midi4lin (explicit)
+RUN_TESTS in aumhaa.midi4lin, no dependencies

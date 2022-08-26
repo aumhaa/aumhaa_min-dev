@@ -1,0 +1,943 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		1B3D1F45FA7548AC825E091C /* RUN_TESTS */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = A59A6E492C2A4DF98E91D6F2 /* Build configuration list for PBXAggregateTarget "RUN_TESTS" */;
+			buildPhases = (
+				003C8D08B0008F35F218E126 /* CMake PostBuild Rules */,
+			);
+			dependencies = (
+			);
+			name = RUN_TESTS;
+			productName = RUN_TESTS;
+		};
+		30D72EF11AEE4FB7B3346E45 /* API */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 73C50961837843BFBE70CA17 /* Build configuration list for PBXAggregateTarget "API" */;
+			buildPhases = (
+			);
+			dependencies = (
+				D4E96C2A9E014673947054D3 /* PBXTargetDependency */,
+			);
+			name = API;
+			productName = API;
+		};
+		3D333E8B718E4771B0C57BD4 /* ZERO_CHECK */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = E97DE3B004B24FF7A52F4463 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
+			buildPhases = (
+				E9EBC56AFFF3BC6952263707 /* Generate CMakeFiles/ZERO_CHECK */,
+			);
+			dependencies = (
+			);
+			name = ZERO_CHECK;
+			productName = ZERO_CHECK;
+		};
+		8B1C558CF4514535BB9A7984 /* ALL_BUILD */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 5274C6F5ADE14F66A0B17AA1 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
+			buildPhases = (
+				8099F6BCA165B950761026C0 /* Generate CMakeFiles/ALL_BUILD */,
+			);
+			dependencies = (
+				4FD0D1E0DCFE4B24A052E1DA /* PBXTargetDependency */,
+				2D57535471D54D26A3A237BC /* PBXTargetDependency */,
+			);
+			name = ALL_BUILD;
+			productName = ALL_BUILD;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildStyle section */
+		018E49A68064489C95648C60 /* Release */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = Release;
+		};
+		360D6D25070348D59AF79D53 /* Debug */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = Debug;
+		};
+		40969CF26E234FAF8EF260C6 /* MinSizeRel */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = MinSizeRel;
+		};
+		A5D5179E88BB4598B9987929 /* RelWithDebInfo */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = RelWithDebInfo;
+		};
+/* End PBXBuildStyle section */
+
+/* Begin PBXContainerItemProxy section */
+		070FBBD0056F4EBDBA83083B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AC0953C35E834E358D628D47 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 30D72EF11AEE4FB7B3346E45;
+			remoteInfo = API;
+		};
+		1DA5B61A107D4F968454FD8F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AC0953C35E834E358D628D47 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3D333E8B718E4771B0C57BD4;
+			remoteInfo = ZERO_CHECK;
+		};
+		9A66365A3AB14134857E4A6C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AC0953C35E834E358D628D47 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3D333E8B718E4771B0C57BD4;
+			remoteInfo = ZERO_CHECK;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		084F1BE65B66480699655B19 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min.h; path = include/c74_min.h; sourceTree = SOURCE_ROOT; };
+		09DA5F54751644A4AE2961F5 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_symbol.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_symbol.h; path = include/c74_min_symbol.h; sourceTree = SOURCE_ROOT; };
+		10D631154A9549AAB57A1615 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		1456A57C7FE9454FA7C67513 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_inlet.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_inlet.h; path = include/c74_min_inlet.h; sourceTree = SOURCE_ROOT; };
+		1483BB9097364A1ABEFC8C57 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_threadsafety.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_threadsafety.h; path = include/c74_min_threadsafety.h; sourceTree = SOURCE_ROOT; };
+		16C71D4AB93348B8815261F4 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/readerwriterqueue/readerwriterqueue.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = readerwriterqueue.h; path = include/readerwriterqueue/readerwriterqueue.h; sourceTree = SOURCE_ROOT; };
+		19E5955EFE0544FA8B3D9B62 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_object.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_object.h; path = include/c74_min_object.h; sourceTree = SOURCE_ROOT; };
+		21CCD9C5DAC54E26941BAAA7 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_time.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_time.h; path = include/c74_min_time.h; sourceTree = SOURCE_ROOT; };
+		277CDEBB44B14A6388398CBE /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_logger.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_logger.h; path = include/c74_min_logger.h; sourceTree = SOURCE_ROOT; };
+		3772A75E8F1E495EA13213D6 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_dataspace_time.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_dataspace_time.h; path = include/c74_min_dataspace_time.h; sourceTree = SOURCE_ROOT; };
+		38D13CFBEDBC4614A84CF36A /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/readerwriterqueue/atomicops.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = atomicops.h; path = include/readerwriterqueue/atomicops.h; sourceTree = SOURCE_ROOT; };
+		393FFA052530451E962FA680 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_event.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_event.h; path = include/c74_min_event.h; sourceTree = SOURCE_ROOT; };
+		3A57EBC7F6CE43D48A50693C /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_buffer_impl.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_buffer_impl.h; path = include/c74_min_buffer_impl.h; sourceTree = SOURCE_ROOT; };
+		3FE7BDC0F5574C918C08DCD9 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_buffer.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_buffer.h; path = include/c74_min_buffer.h; sourceTree = SOURCE_ROOT; };
+		4904BC73017E4F8095F01450 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_flags.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_flags.h; path = include/c74_min_flags.h; sourceTree = SOURCE_ROOT; };
+		4F10B90B7D3A4FEBBEE57E56 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/murmur/Murmur3.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = Murmur3.h; path = include/murmur/Murmur3.h; sourceTree = SOURCE_ROOT; };
+		4F74D6AE35844C0ABBD15E32 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_dataspace_none.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_dataspace_none.h; path = include/c74_min_dataspace_none.h; sourceTree = SOURCE_ROOT; };
+		566B60E6E621453F9B4E8CBB /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_operator_ui.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_operator_ui.h; path = include/c74_min_operator_ui.h; sourceTree = SOURCE_ROOT; };
+		57385AEB3C914BEAAA5ED8EF /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		5D27B505FF4E46EB8D8DA512 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_queue.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_queue.h; path = include/c74_min_queue.h; sourceTree = SOURCE_ROOT; };
+		5E6D009A579B4791BCC86818 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_object_components.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_object_components.h; path = include/c74_min_object_components.h; sourceTree = SOURCE_ROOT; };
+		6A89427EB1D04B56B84433A8 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_dataspace_gain.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_dataspace_gain.h; path = include/c74_min_dataspace_gain.h; sourceTree = SOURCE_ROOT; };
+		6BB10DEF86354FA6B0FFEED9 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_doc.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_doc.h; path = include/c74_min_doc.h; sourceTree = SOURCE_ROOT; };
+		6FEC16227C6342FD97953DF8 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_dataspace.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_dataspace.h; path = include/c74_min_dataspace.h; sourceTree = SOURCE_ROOT; };
+		734E10BD3FF44E70B4C5067B /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_operator_mc.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_operator_mc.h; path = include/c74_min_operator_mc.h; sourceTree = SOURCE_ROOT; };
+		74059F5C94AE42DD94E4A6E1 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_operator_matrix.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_operator_matrix.h; path = include/c74_min_operator_matrix.h; sourceTree = SOURCE_ROOT; };
+		75D5D2BF8CFF40E1887D460C /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_attribute.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_attribute.h; path = include/c74_min_attribute.h; sourceTree = SOURCE_ROOT; };
+		791295506AB444F7AFB21FD7 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_object_wrapper.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_object_wrapper.h; path = include/c74_min_object_wrapper.h; sourceTree = SOURCE_ROOT; };
+		7BBE365670794FCCA90D0053 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_operator_vector.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_operator_vector.h; path = include/c74_min_operator_vector.h; sourceTree = SOURCE_ROOT; };
+		7C1EE24DEA9A45A1A3BAE56D /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_port.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_port.h; path = include/c74_min_port.h; sourceTree = SOURCE_ROOT; };
+		7F7F0849B4AB419F91D1979B /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_outlet.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_outlet.h; path = include/c74_min_outlet.h; sourceTree = SOURCE_ROOT; };
+		8011D14BDB5346A081BDB597 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_patcher.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_patcher.h; path = include/c74_min_patcher.h; sourceTree = SOURCE_ROOT; };
+		8BB143AF50D44B3F904259B1 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_attribute_impl.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_attribute_impl.h; path = include/c74_min_attribute_impl.h; sourceTree = SOURCE_ROOT; };
+		96A590790A894AA89EED0072 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/readerwriterqueue/benchmarks/ext/1024cores/spscqueue.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = spscqueue.h; path = include/readerwriterqueue/benchmarks/ext/1024cores/spscqueue.h; sourceTree = SOURCE_ROOT; };
+		975364EA00E94B81B19563E6 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/readerwriterqueue/benchmarks/systemtime.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = systemtime.h; path = include/readerwriterqueue/benchmarks/systemtime.h; sourceTree = SOURCE_ROOT; };
+		9ECE9FF68EFD4D089F6C0901 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_texteditor.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_texteditor.h; path = include/c74_min_texteditor.h; sourceTree = SOURCE_ROOT; };
+		A1E6A547FA4442D898955FE9 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_path.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_path.h; path = include/c74_min_path.h; sourceTree = SOURCE_ROOT; };
+		A6806FA8B9EC4828ADE2D18B /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_api.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_api.h; path = include/c74_min_api.h; sourceTree = SOURCE_ROOT; };
+		A6E9A5D3B2E74F2EA0038882 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_catch.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_catch.h; path = include/c74_min_catch.h; sourceTree = SOURCE_ROOT; };
+		A8226D19719043CA971A8965 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/readerwriterqueue/tests/unittests/minitest.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = minitest.h; path = include/readerwriterqueue/tests/unittests/minitest.h; sourceTree = SOURCE_ROOT; };
+		B2FA10D1CA1B4231A9E3D0D8 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_notification.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_notification.h; path = include/c74_min_notification.h; sourceTree = SOURCE_ROOT; };
+		BBE47C512AD84072833DC111 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_argument.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_argument.h; path = include/c74_min_argument.h; sourceTree = SOURCE_ROOT; };
+		BCA8A89626EF4DA29D962780 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_timer.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_timer.h; path = include/c74_min_timer.h; sourceTree = SOURCE_ROOT; };
+		C08C22F59C314B0AA79FF9DC /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_unittest.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_unittest.h; path = include/c74_min_unittest.h; sourceTree = SOURCE_ROOT; };
+		C0946A4FB16043C0B875124F /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_graphics.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_graphics.h; path = include/c74_min_graphics.h; sourceTree = SOURCE_ROOT; };
+		C96C33521CE94A4E95CD4C1C /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_string.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_string.h; path = include/c74_min_string.h; sourceTree = SOURCE_ROOT; };
+		D48C0E54F7B3496CAB66E07F /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_message.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_message.h; path = include/c74_min_message.h; sourceTree = SOURCE_ROOT; };
+		DF28DA0687054375AFCDE548 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_atom.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_atom.h; path = include/c74_min_atom.h; sourceTree = SOURCE_ROOT; };
+		DF81038652584CE78FA3BB0E /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_impl.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_impl.h; path = include/c74_min_impl.h; sourceTree = SOURCE_ROOT; };
+		DF9F0A71A2BC44D399DD9347 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_operator_sample.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_operator_sample.h; path = include/c74_min_operator_sample.h; sourceTree = SOURCE_ROOT; };
+		ECEC279B453E428CA9777DF2 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/readerwriterqueue/benchmarks/ext/folly/ProducerConsumerQueue.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ProducerConsumerQueue.h; path = include/readerwriterqueue/benchmarks/ext/folly/ProducerConsumerQueue.h; sourceTree = SOURCE_ROOT; };
+		F112D75817CB4EF793A9E9C7 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_dictionary.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_dictionary.h; path = include/c74_min_dictionary.h; sourceTree = SOURCE_ROOT; };
+		F4693D805F8D4058BE4BEBCC /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_limit.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = c74_min_limit.h; path = include/c74_min_limit.h; sourceTree = SOURCE_ROOT; };
+		FF56AF52DF90486286360FF9 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/readerwriterqueue/tests/common/simplethread.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = simplethread.h; path = include/readerwriterqueue/tests/common/simplethread.h; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		0DA5B7D607DC4179A6014906 /* ALL_BUILD */ = {
+			isa = PBXGroup;
+			children = (
+				D3ECE606465147F1996C8CE5 /* CMake Rules */,
+				10D631154A9549AAB57A1615 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/CMakeLists.txt */,
+			);
+			name = ALL_BUILD;
+			sourceTree = "<group>";
+		};
+		107C66BA4D1A405BA89EA993 /* Header Files */ = {
+			isa = PBXGroup;
+			children = (
+				084F1BE65B66480699655B19 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min.h */,
+				A6806FA8B9EC4828ADE2D18B /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_api.h */,
+				BBE47C512AD84072833DC111 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_argument.h */,
+				DF28DA0687054375AFCDE548 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_atom.h */,
+				75D5D2BF8CFF40E1887D460C /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_attribute.h */,
+				8BB143AF50D44B3F904259B1 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_attribute_impl.h */,
+				3FE7BDC0F5574C918C08DCD9 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_buffer.h */,
+				3A57EBC7F6CE43D48A50693C /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_buffer_impl.h */,
+				A6E9A5D3B2E74F2EA0038882 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_catch.h */,
+				6FEC16227C6342FD97953DF8 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_dataspace.h */,
+				6A89427EB1D04B56B84433A8 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_dataspace_gain.h */,
+				4F74D6AE35844C0ABBD15E32 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_dataspace_none.h */,
+				3772A75E8F1E495EA13213D6 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_dataspace_time.h */,
+				F112D75817CB4EF793A9E9C7 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_dictionary.h */,
+				6BB10DEF86354FA6B0FFEED9 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_doc.h */,
+				393FFA052530451E962FA680 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_event.h */,
+				4904BC73017E4F8095F01450 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_flags.h */,
+				C0946A4FB16043C0B875124F /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_graphics.h */,
+				DF81038652584CE78FA3BB0E /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_impl.h */,
+				1456A57C7FE9454FA7C67513 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_inlet.h */,
+				F4693D805F8D4058BE4BEBCC /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_limit.h */,
+				277CDEBB44B14A6388398CBE /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_logger.h */,
+				D48C0E54F7B3496CAB66E07F /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_message.h */,
+				B2FA10D1CA1B4231A9E3D0D8 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_notification.h */,
+				19E5955EFE0544FA8B3D9B62 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_object.h */,
+				5E6D009A579B4791BCC86818 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_object_components.h */,
+				791295506AB444F7AFB21FD7 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_object_wrapper.h */,
+				74059F5C94AE42DD94E4A6E1 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_operator_matrix.h */,
+				734E10BD3FF44E70B4C5067B /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_operator_mc.h */,
+				DF9F0A71A2BC44D399DD9347 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_operator_sample.h */,
+				566B60E6E621453F9B4E8CBB /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_operator_ui.h */,
+				7BBE365670794FCCA90D0053 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_operator_vector.h */,
+				7F7F0849B4AB419F91D1979B /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_outlet.h */,
+				8011D14BDB5346A081BDB597 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_patcher.h */,
+				A1E6A547FA4442D898955FE9 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_path.h */,
+				7C1EE24DEA9A45A1A3BAE56D /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_port.h */,
+				5D27B505FF4E46EB8D8DA512 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_queue.h */,
+				C96C33521CE94A4E95CD4C1C /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_string.h */,
+				09DA5F54751644A4AE2961F5 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_symbol.h */,
+				9ECE9FF68EFD4D089F6C0901 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_texteditor.h */,
+				1483BB9097364A1ABEFC8C57 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_threadsafety.h */,
+				21CCD9C5DAC54E26941BAAA7 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_time.h */,
+				BCA8A89626EF4DA29D962780 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_timer.h */,
+				C08C22F59C314B0AA79FF9DC /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/c74_min_unittest.h */,
+				4F10B90B7D3A4FEBBEE57E56 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/murmur/Murmur3.h */,
+				38D13CFBEDBC4614A84CF36A /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/readerwriterqueue/atomicops.h */,
+				96A590790A894AA89EED0072 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/readerwriterqueue/benchmarks/ext/1024cores/spscqueue.h */,
+				ECEC279B453E428CA9777DF2 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/readerwriterqueue/benchmarks/ext/folly/ProducerConsumerQueue.h */,
+				975364EA00E94B81B19563E6 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/readerwriterqueue/benchmarks/systemtime.h */,
+				16C71D4AB93348B8815261F4 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/readerwriterqueue/readerwriterqueue.h */,
+				FF56AF52DF90486286360FF9 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/readerwriterqueue/tests/common/simplethread.h */,
+				A8226D19719043CA971A8965 /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/include/readerwriterqueue/tests/unittests/minitest.h */,
+			);
+			name = "Header Files";
+			sourceTree = "<group>";
+		};
+		7D6844E1270241FBBFBC2643 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		831A8B4E39F146BEBA0BB0E7 = {
+			isa = PBXGroup;
+			children = (
+				C9A69B2C66A244C3807F5780 /* API */,
+				0DA5B7D607DC4179A6014906 /* ALL_BUILD */,
+				D553137A6EB64EDFA83360E7 /* Products */,
+				7D6844E1270241FBBFBC2643 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		C9A69B2C66A244C3807F5780 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				107C66BA4D1A405BA89EA993 /* Header Files */,
+				57385AEB3C914BEAAA5ED8EF /* /Users/amounra/Documents/Max 8/Packages/aumhaa/source/min-api/CMakeLists.txt */,
+			);
+			name = API;
+			sourceTree = "<group>";
+		};
+		D3ECE606465147F1996C8CE5 /* CMake Rules */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "CMake Rules";
+			sourceTree = "<group>";
+		};
+		D553137A6EB64EDFA83360E7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXProject section */
+		AC0953C35E834E358D628D47 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1340;
+			};
+			buildConfigurationList = EFB69FAA39FF416C89AFA94D /* Build configuration list for PBXProject "MinAPI" */;
+			buildSettings = {
+			};
+			buildStyles = (
+				360D6D25070348D59AF79D53 /* Debug */,
+				018E49A68064489C95648C60 /* Release */,
+				40969CF26E234FAF8EF260C6 /* MinSizeRel */,
+				A5D5179E88BB4598B9987929 /* RelWithDebInfo */,
+			);
+			compatibilityVersion = "Xcode 3.2";
+			hasScannedForEncodings = 0;
+			mainGroup = 831A8B4E39F146BEBA0BB0E7;
+			projectDirPath = "../../../source/min-api";
+			projectRoot = "";
+			targets = (
+				8B1C558CF4514535BB9A7984 /* ALL_BUILD */,
+				30D72EF11AEE4FB7B3346E45 /* API */,
+				1B3D1F45FA7548AC825E091C /* RUN_TESTS */,
+				3D333E8B718E4771B0C57BD4 /* ZERO_CHECK */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		003C8D08B0008F35F218E126 /* CMake PostBuild Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake PostBuild Rules";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e
+if test \"$CONFIGURATION\" = \"Debug\"; then :
+  cd \"/Users/amounra/Documents/Max 8/Packages/aumhaa/build/source/min-api\"
+  /usr/local/Cellar/cmake/3.22.2/bin/ctest --force-new-ctest-process -C $CONFIGURATION$EFFECTIVE_PLATFORM_NAME
+fi
+if test \"$CONFIGURATION\" = \"Release\"; then :
+  cd \"/Users/amounra/Documents/Max 8/Packages/aumhaa/build/source/min-api\"
+  /usr/local/Cellar/cmake/3.22.2/bin/ctest --force-new-ctest-process -C $CONFIGURATION$EFFECTIVE_PLATFORM_NAME
+fi
+if test \"$CONFIGURATION\" = \"MinSizeRel\"; then :
+  cd \"/Users/amounra/Documents/Max 8/Packages/aumhaa/build/source/min-api\"
+  /usr/local/Cellar/cmake/3.22.2/bin/ctest --force-new-ctest-process -C $CONFIGURATION$EFFECTIVE_PLATFORM_NAME
+fi
+if test \"$CONFIGURATION\" = \"RelWithDebInfo\"; then :
+  cd \"/Users/amounra/Documents/Max 8/Packages/aumhaa/build/source/min-api\"
+  /usr/local/Cellar/cmake/3.22.2/bin/ctest --force-new-ctest-process -C $CONFIGURATION$EFFECTIVE_PLATFORM_NAME
+fi
+";
+			showEnvVarsInLog = 0;
+		};
+		3C0110FC8322DE7E50886E21 = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here
+exit 0";
+			showEnvVarsInLog = 0;
+		};
+		8099F6BCA165B950761026C0 /* Generate CMakeFiles/ALL_BUILD */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Generate CMakeFiles/ALL_BUILD";
+			outputPaths = (
+"/Users/amounra/Documents/Max 8/Packages/aumhaa/build/source/min-api/CMakeFiles/ALL_BUILD"			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e
+if test \"$CONFIGURATION\" = \"Debug\"; then :
+  cd \"/Users/amounra/Documents/Max 8/Packages/aumhaa/build/source/min-api\"
+  echo Build\\ all\\ projects
+fi
+if test \"$CONFIGURATION\" = \"Release\"; then :
+  cd \"/Users/amounra/Documents/Max 8/Packages/aumhaa/build/source/min-api\"
+  echo Build\\ all\\ projects
+fi
+if test \"$CONFIGURATION\" = \"MinSizeRel\"; then :
+  cd \"/Users/amounra/Documents/Max 8/Packages/aumhaa/build/source/min-api\"
+  echo Build\\ all\\ projects
+fi
+if test \"$CONFIGURATION\" = \"RelWithDebInfo\"; then :
+  cd \"/Users/amounra/Documents/Max 8/Packages/aumhaa/build/source/min-api\"
+  echo Build\\ all\\ projects
+fi
+";
+			showEnvVarsInLog = 0;
+		};
+		910A41151295C5F9742C25BD = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here
+exit 0";
+			showEnvVarsInLog = 0;
+		};
+		9797FCCB055ED8894E72B7F5 = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here
+exit 0";
+			showEnvVarsInLog = 0;
+		};
+		9B50530E35CC49C82C2FACCF = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here
+exit 0";
+			showEnvVarsInLog = 0;
+		};
+		E9EBC56AFFF3BC6952263707 /* Generate CMakeFiles/ZERO_CHECK */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Generate CMakeFiles/ZERO_CHECK";
+			outputPaths = (
+"/Users/amounra/Documents/Max 8/Packages/aumhaa/build/source/min-api/CMakeFiles/ZERO_CHECK"			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e
+if test \"$CONFIGURATION\" = \"Debug\"; then :
+  cd \"/Users/amounra/Documents/Max 8/Packages/aumhaa/build/source/min-api\"
+  make -f /Users/amounra/Documents/Max\\ 8/Packages/aumhaa/build/source/min-api/CMakeScripts/ReRunCMake.make
+fi
+if test \"$CONFIGURATION\" = \"Release\"; then :
+  cd \"/Users/amounra/Documents/Max 8/Packages/aumhaa/build/source/min-api\"
+  make -f /Users/amounra/Documents/Max\\ 8/Packages/aumhaa/build/source/min-api/CMakeScripts/ReRunCMake.make
+fi
+if test \"$CONFIGURATION\" = \"MinSizeRel\"; then :
+  cd \"/Users/amounra/Documents/Max 8/Packages/aumhaa/build/source/min-api\"
+  make -f /Users/amounra/Documents/Max\\ 8/Packages/aumhaa/build/source/min-api/CMakeScripts/ReRunCMake.make
+fi
+if test \"$CONFIGURATION\" = \"RelWithDebInfo\"; then :
+  cd \"/Users/amounra/Documents/Max 8/Packages/aumhaa/build/source/min-api\"
+  make -f /Users/amounra/Documents/Max\\ 8/Packages/aumhaa/build/source/min-api/CMakeScripts/ReRunCMake.make
+fi
+";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2D57535471D54D26A3A237BC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3D333E8B718E4771B0C57BD4 /* ZERO_CHECK */;
+			targetProxy = 9A66365A3AB14134857E4A6C /* PBXContainerItemProxy */;
+		};
+		4FD0D1E0DCFE4B24A052E1DA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 30D72EF11AEE4FB7B3346E45 /* API */;
+			targetProxy = 070FBBD0056F4EBDBA83083B /* PBXContainerItemProxy */;
+		};
+		D4E96C2A9E014673947054D3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3D333E8B718E4771B0C57BD4 /* ZERO_CHECK */;
+			targetProxy = 1DA5B61A107D4F968454FD8F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		12EEDD13710841CEB51056CE /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = ("","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/amounra/Documents/Max 8/Packages/aumhaa/build/source/min-api";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		1DB60B1418BE4BC9954F332F /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = ("","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = API;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/amounra/Documents/Max 8/Packages/aumhaa/build/source/min-api";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		1EA0838272E5495AB71E9C54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk;
+				SYMROOT = "/Users/amounra/Documents/Max 8/Packages/aumhaa/build/source/min-api/build";
+			};
+			name = Release;
+		};
+		28EC59CAF4024070BAD29E76 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = ("","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = RUN_TESTS;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/amounra/Documents/Max 8/Packages/aumhaa/build/source/min-api";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		413C228E45FD4FC7B1CB6A72 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk;
+				SYMROOT = "/Users/amounra/Documents/Max 8/Packages/aumhaa/build/source/min-api/build";
+			};
+			name = MinSizeRel;
+		};
+		45100329FADF4909A1640451 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = ("","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = RUN_TESTS;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/amounra/Documents/Max 8/Packages/aumhaa/build/source/min-api";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Release;
+		};
+		4D5FCC20E83545DA88C8BA94 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = ("","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = API;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/amounra/Documents/Max 8/Packages/aumhaa/build/source/min-api";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		5750C8806FAC4AE98AE6DD48 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = ("","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/amounra/Documents/Max 8/Packages/aumhaa/build/source/min-api";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		892DF9CC238249FFBF08A6AA /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = ("","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/amounra/Documents/Max 8/Packages/aumhaa/build/source/min-api";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		91A432D8F48B4127AA493782 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = ("","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/amounra/Documents/Max 8/Packages/aumhaa/build/source/min-api";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		A264CFF840B84D629FD7A0B0 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk;
+				SYMROOT = "/Users/amounra/Documents/Max 8/Packages/aumhaa/build/source/min-api/build";
+			};
+			name = RelWithDebInfo;
+		};
+		A8CACD5A98CC4B9495F3529B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = ("","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = API;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/amounra/Documents/Max 8/Packages/aumhaa/build/source/min-api";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Debug;
+		};
+		AB56ADFAD73A4AF28BE3DCDD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = ("","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/amounra/Documents/Max 8/Packages/aumhaa/build/source/min-api";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Debug;
+		};
+		BC44E0C4887D43D0B888B078 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = ("","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = API;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/amounra/Documents/Max 8/Packages/aumhaa/build/source/min-api";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Release;
+		};
+		C170B858D0624F75A07BB7D6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = ("","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = RUN_TESTS;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/amounra/Documents/Max 8/Packages/aumhaa/build/source/min-api";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Debug;
+		};
+		C5C016522D5249E38EB115B3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = ("","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/amounra/Documents/Max 8/Packages/aumhaa/build/source/min-api";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Release;
+		};
+		CC4429D4B8FF4FE390548CA9 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = ("","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = RUN_TESTS;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/amounra/Documents/Max 8/Packages/aumhaa/build/source/min-api";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		E8530FBCD5A9425781100B77 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk;
+				SYMROOT = "/Users/amounra/Documents/Max 8/Packages/aumhaa/build/source/min-api/build";
+			};
+			name = Debug;
+		};
+		FA4BC8723C3A48EAB9AC636E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = ("","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/amounra/Documents/Max 8/Packages/aumhaa/build/source/min-api";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Release;
+		};
+		FE4F841F9EAB406AA29752C7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = ("","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/amounra/Documents/Max 8/Packages/aumhaa/build/source/min-api";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5274C6F5ADE14F66A0B17AA1 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FE4F841F9EAB406AA29752C7 /* Debug */,
+				C5C016522D5249E38EB115B3 /* Release */,
+				892DF9CC238249FFBF08A6AA /* MinSizeRel */,
+				91A432D8F48B4127AA493782 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		73C50961837843BFBE70CA17 /* Build configuration list for PBXAggregateTarget "API" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A8CACD5A98CC4B9495F3529B /* Debug */,
+				BC44E0C4887D43D0B888B078 /* Release */,
+				4D5FCC20E83545DA88C8BA94 /* MinSizeRel */,
+				1DB60B1418BE4BC9954F332F /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		A59A6E492C2A4DF98E91D6F2 /* Build configuration list for PBXAggregateTarget "RUN_TESTS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C170B858D0624F75A07BB7D6 /* Debug */,
+				45100329FADF4909A1640451 /* Release */,
+				28EC59CAF4024070BAD29E76 /* MinSizeRel */,
+				CC4429D4B8FF4FE390548CA9 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		E97DE3B004B24FF7A52F4463 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AB56ADFAD73A4AF28BE3DCDD /* Debug */,
+				FA4BC8723C3A48EAB9AC636E /* Release */,
+				12EEDD13710841CEB51056CE /* MinSizeRel */,
+				5750C8806FAC4AE98AE6DD48 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		EFB69FAA39FF416C89AFA94D /* Build configuration list for PBXProject "MinAPI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E8530FBCD5A9425781100B77 /* Debug */,
+				1EA0838272E5495AB71E9C54 /* Release */,
+				413C228E45FD4FC7B1CB6A72 /* MinSizeRel */,
+				A264CFF840B84D629FD7A0B0 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AC0953C35E834E358D628D47 /* Project object */;
+}

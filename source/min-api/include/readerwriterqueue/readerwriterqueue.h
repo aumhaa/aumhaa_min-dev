@@ -48,6 +48,21 @@
 #endif
 #endif
 
+#ifndef MOODYCAMEL_MAYBE_ALIGN_TO_CACHELINE
+#if defined (__APPLE__) && defined (__MACH__) && __cplusplus >= 201703L
+// This is required to find out what deployment target we are using
+#include <CoreFoundation/CoreFoundation.h>
+#if !defined(MAC_OS_X_VERSION_MIN_REQUIRED) || MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_14
+// C++17 new(size_t, align_val_t) is not backwards-compatible with older versions of macOS, so we can't support over-alignment in this case
+#define MOODYCAMEL_MAYBE_ALIGN_TO_CACHELINE
+#endif
+#endif
+#endif
+
+#ifndef MOODYCAMEL_MAYBE_ALIGN_TO_CACHELINE
+#define MOODYCAMEL_MAYBE_ALIGN_TO_CACHELINE AE_ALIGN(MOODYCAMEL_CACHE_LINE_SIZE)
+#endif
+
 #ifdef AE_VCPP
 #pragma warning(push)
 #pragma warning(disable: 4324)	// structure was padded due to __declspec(align())
@@ -58,7 +73,7 @@
 namespace moodycamel {
 
 template<typename T, size_t MAX_BLOCK_SIZE = 512>
-class ReaderWriterQueue
+class MOODYCAMEL_MAYBE_ALIGN_TO_CACHELINE ReaderWriterQueue
 {
 	// Design: Based on a queue-of-queues. The low-level queues are just
 	// circular buffers with front and tail indices indicating where the
@@ -698,7 +713,7 @@ private:
 
 		// size must be a power of two (and greater than 0)
 		AE_NO_TSAN Block(size_t const& _size, char* _rawThis, char* _data)
-			: front(0), localTail(0), tail(0), localFront(0), next(nullptr), data(_data), sizeMask(_size - 1), rawThis(_rawThis)
+			: front(0UL), localTail(0), tail(0UL), localFront(0), next(nullptr), data(_data), sizeMask(_size - 1), rawThis(_rawThis)
 		{
 		}
 
@@ -727,10 +742,10 @@ private:
 	}
 
 private:
-	weak_atomic<Block*> frontBlock;		// (Atomic) Elements are enqueued to this block
+	weak_atomic<Block*> frontBlock;		// (Atomic) Elements are dequeued from this block
 	
 	char cachelineFiller[MOODYCAMEL_CACHE_LINE_SIZE - sizeof(weak_atomic<Block*>)];
-	weak_atomic<Block*> tailBlock;		// (Atomic) Elements are dequeued from this block
+	weak_atomic<Block*> tailBlock;		// (Atomic) Elements are enqueued to this block
 
 	size_t largestBlockSize;
 
@@ -788,6 +803,19 @@ public:
 		return false;
 	}
 
+#if MOODYCAMEL_HAS_EMPLACE
+	// Like try_enqueue() but with emplace semantics (i.e. construct-in-place).
+	template<typename... Args>
+	AE_FORCEINLINE bool try_emplace(Args&&... args) AE_NO_TSAN
+	{
+		if (inner.try_emplace(std::forward<Args>(args)...)) {
+			sema->signal();
+			return true;
+		}
+		return false;
+	}
+#endif
+
 
 	// Enqueues a copy of element on the queue.
 	// Allocates an additional block of memory if needed.
@@ -812,6 +840,19 @@ public:
 		}
 		return false;
 	}
+
+#if MOODYCAMEL_HAS_EMPLACE
+	// Like enqueue() but with emplace semantics (i.e. construct-in-place).
+	template<typename... Args>
+	AE_FORCEINLINE bool emplace(Args&&... args) AE_NO_TSAN
+	{
+		if (inner.emplace(std::forward<Args>(args)...)) {
+			sema->signal();
+			return true;
+		}
+		return false;
+	}
+#endif
 
 
 	// Attempts to dequeue an element; if the queue is empty,

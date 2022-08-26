@@ -113,7 +113,7 @@ In most cases you will likely use generic inlets and outlets that accept (and pr
 
 In most cases configuring inlets and outlets at compile time is the ideal solution. There are cases, however, where you may wish to define the inlets and outlets at runtime based on the arguments passed to your object's constructor. 
 
-(note: you cannot define the number of inlets and outlets at runtime for classes inheriting from `sample_operator<>` , you must instead inherit from `perform_operator<>` as is done in the *min.dcblocker~* example code in the Min-DevKit.)
+(note: you cannot define the number of inlets and outlets at runtime for classes inheriting from `sample_operator<>` , you must instead inherit from `perform_operator<>` as is done in the *filter.dcblocker~* example code in the Filter package.)
 
 In an example where you wish to define both the inlets and the outlets at runtime, you will need to create a place in your class to store the inlet/outlet instances. A convenient way to store the instances is in a vector.
 
@@ -128,21 +128,21 @@ In your constructor you then create the inlets and outlets and add the instances
 ```c++
 /// constructor
 clone(const atoms& args = {}) {
-	if (args.empty())
-		error("argument required");
-  
-  	auto inlet_count = args[0];
-  	auto outlet_count = inlet_count * 2;
+  if (args.empty())
+    error("argument required");
+
+  auto inlet_count = args[0];
+  auto outlet_count = inlet_count * 2;
   
 	for (auto i=0; i < inlet_count; ++i) {
-      		auto an_inlet = std::make_unique<inlet<>>(this, "(bang) my assist message");
-		m_inlets.push_back( an_inlet );
-	}
+    auto an_inlet = std::make_unique<inlet<>>(this, "(bang) my assist message");
+    m_inlets.push_back( std::move(an_inlet) );
+  }
 
-  	for (auto i=0; i < outlet_count; ++i) {
-      		auto an_outlet = std::make_unique<outlet<>>(this, "my outlet assist message");
-		m_outlets.push_back( an_outlet );
-	}
+  for (auto i=0; i < outlet_count; ++i) {
+    auto an_outlet = std::make_unique<outlet<>>(this, "my outlet assist message");
+    m_outlets.push_back( std::move(an_outlet) );
+  }
 }
 ```
 
@@ -179,7 +179,7 @@ A "number" message will be called for either "float" or "int" input. If you want
 
 ## Attributes
 
-Attributes are simply variables that are exposed to Max. To do this you create attribute instance specialized with the datatype the attribute is to represent.
+Attributes are simply variables that are exposed to Max. To do this you create an attribute instance specialized with the datatype the attribute is to represent.
 
 Attributes have 3 required arguments: a pointer to the owning instance of your class (`this`), a string for the attribute name in Max, and a default value for initialization.
 
@@ -362,7 +362,7 @@ Dictionaries are Max's implementation of an associative array container mapping 
 
 ### Handling Dictionary Input
 
-To respond to a dictionary coming into an inlet, define a message named "dictionary". It' first argument will be an atom containing a dictionary.
+To respond to a dictionary coming into an inlet, define a message named "dictionary". Its first argument will be an atom containing a dictionary.
 
 ``` c++
 message<> dictionary { this, "dictionary", 
@@ -408,7 +408,7 @@ message<> savestate { this, "savestate",
 };
 ```
 
-To recall your saved state when the patcher is loaded, the object is pasted into another patcher, etc. you call the inherited `state()` method to get your instance's dictionary from the patcher.
+To recall your saved state when the patcher is loaded, or when the object is pasted into another patcher, etc. you call the inherited `state()` method to get your instance's dictionary from the patcher.
 
 ```c++
 auto saved_state = state();						

@@ -7,10 +7,11 @@
 
 namespace c74::min {
 
+    using tagged_attribute = std::pair<const symbol, attribute_base*>;
 
     class ui_operator_base {
     public:
-        virtual void add_color_attribute(std::pair<symbol,attribute_base*> a_color_attr) = 0;
+		virtual void add_color_attribute(const tagged_attribute a_color_attr) = 0;
         virtual void update_colors() = 0;
     };
 
@@ -25,16 +26,16 @@ namespace c74::min {
                 return;
 
             long flags = 0
-                | c74::max::JBOX_DRAWFIRSTIN		// 0
-                | c74::max::JBOX_NODRAWBOX		// 1
-                | c74::max::JBOX_DRAWINLAST		// 2
+                | JBOX_DRAWFIRSTIN		// 0
+                | JBOX_NODRAWBOX		// 1
+                | JBOX_DRAWINLAST		// 2
              //	| JBOX_TRANSPARENT		// 3
              //	| JBOX_NOGROW			// 4
              //	| JBOX_GROWY			// 5
-                | c74::max::JBOX_GROWBOTH			// 6
+                | JBOX_GROWBOTH			// 6
              //	| JBOX_IGNORELOCKCLICK	// 7
              //	| JBOX_HILITE			// 8
-                | c74::max::JBOX_BACKGROUND		// 9
+                | JBOX_BACKGROUND		// 9
              //	| JBOX_NOFLOATINSPECTOR	// 10
              // | c74::max::JBOX_TEXTFIELD		// 11
              //   | c74::max::JBOX_MOUSEDRAGDELTA	// 12
@@ -50,15 +51,17 @@ namespace c74::min {
             strings tags = instance->tags();
             auto tag_iter = std::find(tags.begin(), tags.end(), "multitouch");
             if (tag_iter != tags.end()) {
-                flags |= c74::max::JBOX_MULTITOUCH;
-                std::cout << "MULTITOUCH" << std::endl;
+                flags |= JBOX_MULTITOUCH;
             }
-            else {
-                flags |= c74::max::JBOX_MOUSEDRAGDELTA;
-                std::cout << "NOT MULTITOUCH" << std::endl;
+            if (m_instance->has_mousedragdelta()) {
+                flags |= JBOX_MOUSEDRAGDELTA;
+            }
+            if (m_instance->is_focusable()) {
+                flags |= JBOX_HILITE;
             }
 
-            c74::max::jbox_new(reinterpret_cast<c74::max::t_jbox*>(m_instance->maxobj()), flags, static_cast<long>(args.size()), static_cast<const c74::max::t_atom*>(&args[0]));
+            const c74::max::t_atom* argv = args.empty() ? nullptr : &args[0];
+            c74::max::jbox_new(reinterpret_cast<c74::max::t_jbox*>(m_instance->maxobj()), flags, static_cast<long>(args.size()), const_cast<max::t_atom*>(argv));
             reinterpret_cast<c74::max::t_jbox*>(m_instance->maxobj())->b_firstin = m_instance->maxobj();
         }
 
@@ -80,7 +83,7 @@ namespace c74::min {
             return default_height_type;
         }
 
-        void add_color_attribute(std::pair<symbol,attribute_base*> a_color_attr) override {
+        void add_color_attribute(const tagged_attribute a_color_attr) override {
             m_color_attributes.push_back(a_color_attr);
         }
 
@@ -106,7 +109,7 @@ namespace c74::min {
 
     private:
         object_base* m_instance;
-        vector<std::pair<symbol,attribute_base*>> m_color_attributes;
+		vector<tagged_attribute> m_color_attributes;
     };
 
 
@@ -118,7 +121,7 @@ namespace c74::min {
         strings tags = instance.tags();
         auto tag_iter = std::find(tags.begin(), tags.end(), "multitouch");
         if (tag_iter != tags.end()) {
-            flags |= c74::max::JBOX_MULTITOUCH;
+            flags |= JBOX_MULTITOUCH;
         }
 
         // flags |= c74::max::JBOX_TEXTFIELD;
@@ -131,6 +134,7 @@ namespace c74::min {
         default_patching_rect += std::to_string(instance.default_height());
 
         auto attr = (c74::max::t_object*)c74::max::class_attr_get(c, c74::max::gensym("patching_rect"));
+        using namespace c74::max;
         auto attr_type = (c74::max::t_symbol*)object_method(attr, c74::max::gensym("gettype"));
         c74::max::class_attr_addattr_parse(c, "patching_rect", "default", attr_type, 0, default_patching_rect.c_str());
     }

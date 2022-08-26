@@ -16,10 +16,6 @@ if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${TEST_NAME}.cpp")
 		"${C74_MIN_API_DIR}/test"
 		# "${C74_MIN_API_DIR}/test/mock"
 	)
-    
-	add_definitions(
-		-DMIN_TEST
-	)
 
 	set(TEST_SOURCE_FILES "")
 	FOREACH(SOURCE_FILE ${SOURCE_FILES})
@@ -39,12 +35,16 @@ if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${TEST_NAME}.cpp")
 	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 
-	if (APPLE)
-		#set(CMAKE_OSX_ARCHITECTURES x86_64;i386)
-		set(CMAKE_OSX_ARCHITECTURES x86_64)
+	add_executable(${TEST_NAME} ${TEST_NAME}.cpp ${TEST_SOURCE_FILES})
+
+	if (NOT TARGET mock_kernel)
+		set(C74_MOCK_TARGET_DIR "${CMAKE_CURRENT_LIST_DIR}/../../../tests")
+		add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/../test/mock ${CMAKE_BINARY_DIR}/mock)
 	endif ()
 
-	add_executable(${TEST_NAME} ${TEST_NAME}.cpp ${TEST_SOURCE_FILES})
+	add_dependencies(${TEST_NAME} mock_kernel)
+
+	target_compile_definitions(${TEST_NAME} PUBLIC -DMIN_TEST)
 
 	set_property(TARGET ${TEST_NAME} PROPERTY CXX_STANDARD 17)
 	set_property(TARGET ${TEST_NAME} PROPERTY CXX_STANDARD_REQUIRED ON)
@@ -52,7 +52,8 @@ if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${TEST_NAME}.cpp")
     target_link_libraries(${TEST_NAME} PUBLIC "mock_kernel")
 
 	if (APPLE)
-        set_target_properties(${TEST_NAME} PROPERTIES LINK_FLAGS "-Wl,-F'${C74_MAX_API_DIR}/lib/mac', -weak_framework JitterAPI")
+        set_target_properties(${TEST_NAME} PROPERTIES LINK_FLAGS "-Wl,-F'${MAX_SDK_JIT_INCLUDES}', -weak_framework JitterAPI")
+		target_compile_options(${TEST_NAME} PRIVATE -DCATCH_CONFIG_NO_CPP17_UNCAUGHT_EXCEPTIONS)
 	endif ()
 	if (WIN32)
         set_target_properties(${TEST_NAME} PROPERTIES COMPILE_PDB_NAME ${TEST_NAME})

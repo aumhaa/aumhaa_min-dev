@@ -34,10 +34,10 @@ namespace c74::min {
 
 
     template<class min_class_type>
-    minwrap<min_class_type>* wrapper_new(max::t_symbol* name, long ac, max::t_atom* av) {
+    minwrap<min_class_type>* wrapper_new(const max::t_symbol* name, const long ac, const max::t_atom* av) {
         try {
-            atom_reference args(ac, av);
-            long           attrstart = attr_args_offset(static_cast<short>(args.size()), args.begin());    // support normal arguments
+            const atom_reference args(ac, av);
+            long           attrstart = attr_args_offset(static_cast<short>(args.size()), const_cast<max::t_atom*>(args.begin()));    // support normal arguments
             auto           self      = static_cast<minwrap<min_class_type>*>(max::object_alloc(this_class));
             auto           self_ob   = reinterpret_cast<max::t_object*>(self);
 
@@ -49,8 +49,11 @@ namespace c74::min {
 
             self->setup();
 
+            //setup : a special method called when your instance is being instantiated
+            self->m_min_object.try_call("setup");
+
             if (self->m_min_object.is_ui_class()) {
-                max::t_dictionary* d = object_dictionaryarg(ac, av);
+                max::t_dictionary* d = object_dictionaryarg(ac, const_cast<max::t_atom*>(av));
                 if (d) {
                     max::attr_dictionary_process(self, d);
                     max::jbox_ready((max::t_jbox*)self);
@@ -59,7 +62,7 @@ namespace c74::min {
             else {
                 max::object_attach_byptr_register(
                     self, self, k_sym_box);    // so that objects can get notifications about their own attributes
-                max::attr_args_process(self, static_cast<short>(args.size()), args.begin());
+                max::attr_args_process(self, static_cast<short>(args.size()), const_cast<max::t_atom*>(args.begin()));
             }
             return self;
         }
@@ -78,7 +81,7 @@ namespace c74::min {
 
 
     template<class min_class_type>
-    void wrapper_method_assist(minwrap<min_class_type>* self, void* b, long m, long a, char* s) {
+    void wrapper_method_assist(minwrap<min_class_type>* self, const void* b, const long m, const long a, char* s) {
         if (m == 2) {
             const auto& outlet = self->m_min_object.outlets()[a];
             strncpy(s, outlet->description().c_str(), 256);
@@ -117,7 +120,7 @@ namespace c74::min {
     }
 
     template<class min_class_type, class message_name_type>
-    void wrapper_method_int(max::t_object* o, max::t_atom_long v) {
+    void wrapper_method_int(max::t_object* o, const max::t_atom_long v) {
         auto  self = wrapper_find_self<min_class_type>(o);
         auto& meth = *self->m_min_object.messages()[message_name_type::name];
         atoms as   = {v};
@@ -126,7 +129,7 @@ namespace c74::min {
     }
 
     template<class min_class_type, class message_name_type>
-    void wrapper_method_float(max::t_object* o, double v) {
+    void wrapper_method_float(max::t_object* o, const double v) {
         auto  self = wrapper_find_self<min_class_type>(o);
         auto& meth = *self->m_min_object.messages()[message_name_type::name];
         atoms as   = {v};
@@ -135,7 +138,7 @@ namespace c74::min {
     }
 
     template<class min_class_type, class message_name_type>
-    void wrapper_method_symbol(max::t_object* o, max::t_symbol* v) {
+    void wrapper_method_symbol(max::t_object* o, const max::t_symbol* v) {
         auto  self = wrapper_find_self<min_class_type>(o);
         auto& meth = *self->m_min_object.messages()[message_name_type::name];
         atoms as   = {symbol(v)};
@@ -144,7 +147,7 @@ namespace c74::min {
     }
 
     template<class min_class_type, class message_name_type>
-    void wrapper_method_anything(max::t_object* o, max::t_symbol* s, long ac, max::t_atom* av) {
+    void wrapper_method_anything(max::t_object* o, const max::t_symbol* s, const long ac, const max::t_atom* av) {
         auto  self = wrapper_find_self<min_class_type>(o);
         auto& meth = *self->m_min_object.messages()[message_name_type::name];
         atoms as(ac + 1L);
@@ -156,7 +159,7 @@ namespace c74::min {
     }
 
     template<class min_class_type, class message_name_type>
-    void wrapper_method_ptr(max::t_object* o, void* v) {
+    void wrapper_method_ptr(max::t_object* o, const void* v) {
         auto  self = wrapper_find_self<min_class_type>(o);
         auto& meth = *self->m_min_object.messages()[message_name_type::name];
         atoms as   = {v};
@@ -165,7 +168,7 @@ namespace c74::min {
     }
 
     template<class min_class_type>
-    void wrapper_method_savestate(max::t_object* o, max::t_dictionary* d) {
+    void wrapper_method_savestate(max::t_object* o, const max::t_dictionary* d) {
         auto  self = wrapper_find_self<min_class_type>(o);
         auto& meth = *self->m_min_object.messages()["savestate"];
         atoms as   = {d};
@@ -173,7 +176,7 @@ namespace c74::min {
     }
 
     template<class min_class_type, class message_name_type>
-    void wrapper_method_self_ptr(max::t_object* o, void* arg1) {
+    void wrapper_method_self_ptr(max::t_object* o, const void* arg1) {
         auto  self = wrapper_find_self<min_class_type>(o);
         auto& meth = *self->m_min_object.messages()[message_name_type::name];
         atoms as{o, arg1};
@@ -182,7 +185,7 @@ namespace c74::min {
     }
 
     template<class min_class_type, class message_name_type>
-    void* wrapper_method_oksize(max::t_object* o, void* arg1) {
+    void* wrapper_method_oksize(max::t_object* o, const void* arg1) {
         auto  self = wrapper_find_self<min_class_type>(o);
 
         // this method can be called by the ctor before the object is actually constructed
@@ -197,7 +200,7 @@ namespace c74::min {
     }
 
     template<class min_class_type, class message_name_type>
-    void wrapper_method_paint(max::t_object* o, void* arg1) {
+    void wrapper_method_paint(max::t_object* o, const void* arg1) {
         if (is_base_of<ui_operator_base, min_class_type>::value) {
             auto  self = wrapper_find_self<min_class_type>(o);
             auto& ui_op = const_cast<ui_operator_base&>(dynamic_cast<const ui_operator_base&>(self->m_min_object));
@@ -212,7 +215,7 @@ namespace c74::min {
     }
 
     template<class min_class_type, class message_name_type>
-    void wrapper_method_mouse(max::t_object* o, max::t_object* a_patcherview, max::t_pt position, max::t_atom_long modifiers) {
+    void wrapper_method_mouse(max::t_object* o, max::t_object* a_patcherview, const max::t_pt position, const max::t_atom_long modifiers) {
         auto  self = wrapper_find_self<min_class_type>(o);
         auto& meth = *self->m_min_object.messages()[message_name_type::name];
         max::t_mouseevent an_event {};
@@ -235,7 +238,7 @@ namespace c74::min {
 
 
     template<class min_class_type, class message_name_type>
-    void wrapper_method_multitouch(max::t_object* o, max::t_object* a_patcherview, max::t_mouseevent* an_event) {
+    void wrapper_method_multitouch(max::t_object* o, max::t_object* a_patcherview, const max::t_mouseevent* an_event) {
         auto  self = wrapper_find_self<min_class_type>(o);
         auto  name = message_name_type::name;
 
@@ -260,7 +263,7 @@ namespace c74::min {
 
 
     template<class min_class_type, class message_name_type>
-    max::t_max_err wrapper_method_self_sym_sym_ptr_ptr___err(max::t_object* o, max::t_symbol* s1, max::t_symbol* s2, void* p1, void* p2) {
+    max::t_max_err wrapper_method_self_sym_sym_ptr_ptr___err(max::t_object* o, const max::t_symbol* s1, const max::t_symbol* s2, const void* p1, const void* p2) {
         auto  self = wrapper_find_self<min_class_type>(o);
 
         // This supports notify methods for UI objects which don't actually have a notify method member in the min class
@@ -276,11 +279,11 @@ namespace c74::min {
     }
 
     template<class min_class_type, class message_name_type>
-    max::t_max_err wrapper_method_notify(max::t_object* o, max::t_symbol* s1, max::t_symbol* s2, void* p1, void* p2) {
+    max::t_max_err wrapper_method_notify(max::t_object* o, const max::t_symbol* s1, const max::t_symbol* s2, const void* p1, const void* p2) {
         if (is_base_of<ui_operator_base, min_class_type>::value) {
             auto err = wrapper_method_self_sym_sym_ptr_ptr___err<min_class_type, message_name_type>(o, s1, s2, p1, p2);
             if (!err)
-                return c74::max::jbox_notify(reinterpret_cast<c74::max::t_jbox*>(o), s1, s2, p1, p2);
+                return c74::max::jbox_notify(reinterpret_cast<c74::max::t_jbox*>(o), const_cast<max::t_symbol*>(s1), const_cast<max::t_symbol*>(s2), const_cast<void*>(p1), const_cast<void*>(p2));
             else
                 return err;
         }
@@ -289,12 +292,23 @@ namespace c74::min {
     }
 
     template<class min_class_type, class message_name_type>
-    void wrapper_method_self_ptr_long_ptr_long_ptr_long(max::t_object* o, void* arg1, max::t_atom_long arg2, max::t_atom_long* arg3, max::t_atom_long arg4, max::t_atom_long* arg5, max::t_atom_long arg6) {
+    void wrapper_method_self_ptr_long_ptr_long_ptr_long(max::t_object* o, const void* arg1, const max::t_atom_long arg2, const max::t_atom_long* arg3, const max::t_atom_long arg4, const max::t_atom_long* arg5, const max::t_atom_long arg6) {
         auto  self = wrapper_find_self<min_class_type>(o);
         auto& meth = *self->m_min_object.messages()[message_name_type::name];
-        atoms as{o, arg1, arg2, arg3, arg4, arg5, arg6};    // NOTE: self could be the jitter object rather than the max object -- so we
+        atoms as {o, arg1, arg2, arg3, arg4, arg5, arg6};   // NOTE: self could be the jitter object rather than the max object -- so we
                                                             // pass `o` which is always the correct `self` for box operations
         meth(as);
+    }
+
+
+    template<class min_class_type, class message_name_type>
+    max::t_atom_long wrapper_method_self_ptr_long_long_long(max::t_object* o, const void* arg1, const max::t_atom_long arg2, const max::t_atom_long arg3, const max::t_atom_long arg4) {
+        auto  self = wrapper_find_self<min_class_type>(o);
+        auto& meth = *self->m_min_object.messages()[message_name_type::name];
+        atoms as {o, arg1, arg2, arg3, arg4};   // NOTE: self could be the jitter object rather than the max object -- so we
+                                                // pass `o` which is always the correct `self` for box operations
+        auto return_value = static_cast<max::t_atom_long>(meth(as)[0]);
+        return return_value;
     }
 
     template<class min_class_type, class message_name_type>
@@ -311,10 +325,10 @@ namespace c74::min {
 
     // dictionary is a very special case because of the reference counting
     template<class min_class_type, class message_name_type>
-    void wrapper_method_dictionary(max::t_object* o, max::t_symbol* s) {
+    void wrapper_method_dictionary(max::t_object* o, const max::t_symbol* s) {
         auto  self = wrapper_find_self<min_class_type>(o);
         auto& meth = *self->m_min_object.messages()[message_name_type::name];
-        auto  d    = dictobj_findregistered_retain(s);
+        auto  d    = dictobj_findregistered_retain(const_cast<max::t_symbol*>(s));
         atoms as   = {atom(d)};
 
         meth(as);
@@ -341,7 +355,7 @@ namespace c74::min {
 
     // this version is called for most message instances defined in the min class
     template<class min_class_type>
-    void wrapper_method_generic(max::t_object* o, max::t_symbol* s, long ac, max::t_atom* av) {
+    void wrapper_method_generic(max::t_object* o, const max::t_symbol* s, const long ac, const max::t_atom* av) {
         auto  self = wrapper_find_self<min_class_type>(o);
         auto& meth = *self->m_min_object.messages()[s->s_name];
         atoms as(ac);
@@ -353,7 +367,7 @@ namespace c74::min {
 
     // same as wrapper_method_generic but can return values in an atom (A_GIMMEBACK)
     template<class min_class_type>
-    void wrapper_method_generic_typed(max::t_object* o, max::t_symbol* s, long ac, max::t_atom* av, max::t_atom* rv) {
+    void wrapper_method_generic_typed(max::t_object* o, const max::t_symbol* s, const long ac, const max::t_atom* av, max::t_atom* rv) {
         auto  self = wrapper_find_self<min_class_type>(o);
         auto& meth = *self->m_min_object.messages()[s->s_name];
         atoms as(ac);
@@ -372,13 +386,13 @@ namespace c74::min {
     }
 
     template<class min_class_type>
-    max::t_max_err wrapper_method_setvalueof(max::t_object* o, long ac, max::t_atom* av) {
-        return max::object_attr_setvalueof(o, k_sym_value, ac, av);
+    max::t_max_err wrapper_method_setvalueof(max::t_object* o, const long ac, const max::t_atom* av) {
+        return max::object_attr_setvalueof(o, k_sym_value, ac, const_cast<max::t_atom*>(av));
     }
 
     template<class min_class_type>
     void wrapper_method_preset(max::t_object* o) {
-        auto z = static_cast<void*>(k_sym__preset);
+        auto z = k_sym__preset.object();
 
         if (z) {
             long ac = 0;
@@ -433,11 +447,15 @@ namespace c74::min {
     MIN_WRAPPER_CREATE_TYPE_FROM_STRING(bang)
     MIN_WRAPPER_CREATE_TYPE_FROM_STRING(dblclick)
     MIN_WRAPPER_CREATE_TYPE_FROM_STRING(dictionary)
+    MIN_WRAPPER_CREATE_TYPE_FROM_STRING(dspstate)
     MIN_WRAPPER_CREATE_TYPE_FROM_STRING(edclose)
     MIN_WRAPPER_CREATE_TYPE_FROM_STRING(fileusage)
     MIN_WRAPPER_CREATE_TYPE_FROM_STRING(float)
+    MIN_WRAPPER_CREATE_TYPE_FROM_STRING(focusgained)
+    MIN_WRAPPER_CREATE_TYPE_FROM_STRING(focuslost)
     MIN_WRAPPER_CREATE_TYPE_FROM_STRING(getplaystate)
     MIN_WRAPPER_CREATE_TYPE_FROM_STRING(int)
+    MIN_WRAPPER_CREATE_TYPE_FROM_STRING(key)
     MIN_WRAPPER_CREATE_TYPE_FROM_STRING(loadbang)
     MIN_WRAPPER_CREATE_TYPE_FROM_STRING(mouseenter)
     MIN_WRAPPER_CREATE_TYPE_FROM_STRING(mt_mouseenter)
@@ -494,6 +512,7 @@ namespace c74::min {
         for (auto& a_message : instance.messages()) {
             MIN_WRAPPER_ADDMETHOD(c, bang, zero, A_NOTHING)
             else MIN_WRAPPER_ADDMETHOD(c, dblclick, zero, A_CANT)
+            else MIN_WRAPPER_ADDMETHOD(c, dspstate, int, A_CANT)
             else MIN_WRAPPER_ADDMETHOD(c, okclose, zero, A_CANT)
             else MIN_WRAPPER_ADDMETHOD(c, edclose, zero, A_CANT)
             else MIN_WRAPPER_ADDMETHOD(c, loadbang, zero, A_CANT)
@@ -521,19 +540,22 @@ namespace c74::min {
             else MIN_WRAPPER_ADDMETHOD(c, oksize, oksize, A_CANT)
             else MIN_WRAPPER_ADDMETHOD(c, mousedragdelta, mouse, A_CANT)
             else MIN_WRAPPER_ADDMETHOD(c, mousedoubleclick, mouse, A_CANT)
+            else MIN_WRAPPER_ADDMETHOD(c, focusgained, self_ptr, A_CANT)
+            else MIN_WRAPPER_ADDMETHOD(c, focuslost, self_ptr, A_CANT)
+            else MIN_WRAPPER_ADDMETHOD(c, key, self_ptr_long_long_long, A_CANT)
             else if (static_cast<message_type>(*a_message.second) == message_type::ellipsis)
                 max::class_addmethod(c, reinterpret_cast<method>(wrapper_method_ellipsis<min_class_type>), a_message.first.c_str(), max::A_CANT, 0);
             else if (a_message.first == "dspsetup");    // skip -- handle it in operator classes
             else if (a_message.first == "maxclass_setup");          // for min class construction only, do not add for exposure to max
             else if (a_message.first == "savestate")
                 max::class_addmethod(c, reinterpret_cast<max::method>(wrapper_method_savestate<min_class_type>), "appendtodictionary", max::A_CANT, 0);
-        	else {
-                if (a_message.second->type() == max::A_GIMMEBACK) {
-                    max::class_addmethod(c, reinterpret_cast<method>(wrapper_method_generic_typed<min_class_type>), 
-                        a_message.first.c_str(), a_message.second->type(), 0);
-				}
-                else {
-					max::class_addmethod(c, reinterpret_cast<method>(wrapper_method_generic<min_class_type>), 
+            else {
+              if (a_message.second->type() == max::A_GIMMEBACK) {
+                max::class_addmethod(c, reinterpret_cast<method>(wrapper_method_generic_typed<min_class_type>),
+                    a_message.first.c_str(), a_message.second->type(), 0);
+              }
+              else {
+                max::class_addmethod(c, reinterpret_cast<method>(wrapper_method_generic<min_class_type>),
                         a_message.first.c_str(), a_message.second->type(), 0);
                 }
             }
@@ -547,8 +569,8 @@ namespace c74::min {
         // attributes
 
         for (auto& an_attribute : instance.attributes()) {
-            std::string     attr_name = an_attribute.first;
-            attribute_base& attr      = *an_attribute.second;
+            std::string     attr_name  { an_attribute.first };
+            attribute_base& attr       { *an_attribute.second };
 
             if (attr.visible() == visibility::disable)
                 continue;
@@ -557,10 +579,24 @@ namespace c74::min {
                 c, reinterpret_cast<method>(min_attr_getter<min_class_type>), reinterpret_cast<method>(min_attr_setter<min_class_type>));
 
             // Attribute Metadata
+            using namespace c74::max;
             CLASS_ATTR_LABEL(c, attr_name.c_str(), 0, attr.label_string());
 
             if (attr.editor_style() != style::none) {
                 CLASS_ATTR_STYLE(c, attr_name.c_str(), 0, style_symbols[attr.editor_style()]);
+            }
+
+            if (attr.live_color_mapping() != k_sym__empty) {
+                max::t_jrgba current_color;
+                max::object_parameter_color_get(nullptr, attr.live_color_mapping(), &current_color);
+
+                const auto str = std::to_string(current_color.red) + " " + std::to_string(current_color.green) + " "
+                  + std::to_string(current_color.blue) + " " + std::to_string(current_color.alpha);
+
+                CLASS_ATTR_DEFAULTNAME(c, attr_name.c_str(), 0, str.c_str());
+                max::class_parameter_register_default_color(c, symbol(attr_name), attr.live_color_mapping());
+            } else {
+                CLASS_ATTR_DEFAULT(c, attr_name.c_str(), 0, attr.default_string().c_str());
             }
 
             if (!(attr.editor_category() == k_sym__empty)) {
@@ -662,7 +698,7 @@ namespace c74::min {
         host_flags flags = host_flags::none;
         class_get_flags<min_class_type>(*instance, flags);
         if (flags == host_flags::no_live) {
-            if (max::object_attr_getlong(k_sym_max, symbol("islib")))
+            if (max::object_attr_getlong(k_sym_max.object(), symbol("islib")))
                 return;    // we are being loaded in Live, and a flag to the class specifically prohibits that
         }
 
@@ -670,9 +706,9 @@ namespace c74::min {
 
         wrap_as_max_external_audio<min_class_type>(c);
 
+        instance->try_call("maxclass_setup", c);
         wrap_as_max_external_finish<min_class_type>(c, *instance);
         this_class = c;
-        instance->try_call("maxclass_setup", c);
         this_class_dummy_constructed = true;
      }
 
@@ -722,7 +758,7 @@ namespace c74::min {
         }
         else {
             // add mop
-            auto mop = max::jit_object_new(max::_jit_sym_jit_mop, inlet_count, outlet_count);
+            auto mop = (max::t_jit_object*)max::jit_object_new(max::_jit_sym_jit_mop, inlet_count, outlet_count);
             max::jit_class_addadornment(this_jit_class, mop);
 
             // add methods
@@ -738,6 +774,7 @@ namespace c74::min {
                 reinterpret_cast<method>(min_attr_setter<min_class_type>), true);
 
             // Attribute Metadata
+            using namespace c74::max;
             CLASS_ATTR_LABEL(this_jit_class, attr_name.c_str(), 0, attr.label_string());
 
             if (attr.editor_style() != style::none) {
@@ -770,6 +807,7 @@ namespace c74::min {
         for (auto& a_message : instance->messages()) {
             MIN_WRAPPER_ADDMETHOD(c, bang, zero, A_NOTHING)
             else MIN_WRAPPER_ADDMETHOD(c, dblclick, zero, A_CANT)
+            else MIN_WRAPPER_ADDMETHOD(c, dspstate, int, A_CANT)
             else MIN_WRAPPER_ADDMETHOD(c, okclose, zero, A_CANT)
             else MIN_WRAPPER_ADDMETHOD(c, edclose, zero, A_CANT)
             else MIN_WRAPPER_ADDMETHOD(c, loadbang, zero, A_CANT)
@@ -810,9 +848,9 @@ namespace c74::min {
                     class_addmethod(this_jit_class, reinterpret_cast<method>(wrapper_method_generic<min_class_type>),
                         a_message.first.c_str(), max::A_CANT, 0);
                     class_addtypedwrapper(this_jit_class, reinterpret_cast<method>(wrapper_method_generic_typed<min_class_type>),
-                        a_message.first.c_str(), a_message.second->type(), 0);
+                        (char*)a_message.first.c_str(), a_message.second->type(), 0);
                     max_jit_class_addmethod_defer_low(
-                        c, reinterpret_cast<method>(max::max_jit_obex_gimmeback_dumpout), a_message.first.c_str());
+                        c, reinterpret_cast<method>(max::max_jit_obex_gimmeback_dumpout), (char*)a_message.first.c_str());
                 }
                 else {
                     // all other messages are added to the jitter class
@@ -862,7 +900,7 @@ namespace c74::min {
     /// @param    names_of_folders_to_include     Optional. The names of the folders in the package to add to the standalone.
     ///                                         If none are provided then the entire package will be added.
 
-    inline void fileusage_addpackage(const atoms& fileusage_handle, string package_name, strings names_of_folders_to_include= {}) {
+    inline void fileusage_addpackage(const atoms& fileusage_handle, const string& package_name, const strings& names_of_folders_to_include = {}) {
         void *w { fileusage_handle[0] };
         if (names_of_folders_to_include.empty())
             c74::max::fileusage_addpackage(w, package_name.c_str(), nullptr);
@@ -874,7 +912,7 @@ namespace c74::min {
                 c74::max::atom_setsym(&a, c74::max::gensym(folder_name.c_str()));
                 c74::max::atomarray_appendatom(aa, &a);
             }
-            c74::max::fileusage_addpackage(w, package_name.c_str(), (c74::max::t_object*)aa);
+            c74::max::fileusage_addpackage(w, package_name.c_str(), aa);
         }
     }
 

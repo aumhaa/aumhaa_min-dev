@@ -117,6 +117,23 @@ namespace c74::min {
     using readonly = bool;
 
 
+    /// Defines a mapping to a color in Max for Live's themes.
+    /// For examples of valid color names see the live.colors object in Max.
+    /// @ingroup attributes
+
+    class live_color {
+		symbol m_color_name;
+    public:
+        live_color(const symbol& a_symbol)
+        : m_color_name { a_symbol }
+        {}
+
+        operator symbol() const {
+            return m_color_name;
+        }
+	};
+
+
     // Represents any type of attribute.
     // Used internally to allow heterogenous containers of attributes for the Min class.
     /// @ingroup attributes
@@ -125,7 +142,7 @@ namespace c74::min {
     protected:
         // Constructor. See the constructor documention for min::attribute<> to get more details on the arguments.
 
-        attribute_base(object_base& an_owner, std::string a_name)
+        attribute_base(object_base& an_owner, const std::string& a_name)
         : m_owner{an_owner}
         , m_name{a_name}
         , m_title{a_name}
@@ -137,14 +154,15 @@ namespace c74::min {
 
 
         // All attributes must define what happens when you set their value.
+        // Args may be modified if the range is constrained
 
-        virtual attribute_base& operator=(atoms& args) = 0;
+        virtual attribute_base& operator=(const atoms& args) = 0;
 
 
         // All attributes must define what happens when you set their value.
         // NOTE: args may be modified after this call due to range limiting behavior
 
-        virtual void set(atoms& args, bool notify = true, bool override_readonly = false) = 0;
+        virtual void set(const atoms& args, const bool notify = true, const bool override_readonly = false) = 0;
 
 
         // All attributes must define what happens when you get their value.
@@ -155,7 +173,7 @@ namespace c74::min {
         // All attributes must define what happens when asked for their range of values.
         // The range must be in string format, values separated by spaces.
 
-        virtual std::string range_string() = 0;
+        virtual std::string range_string() const = 0;
 
 
         // All attributes must define what happens in the Max wrapper to
@@ -163,7 +181,7 @@ namespace c74::min {
         // Not intended for public use, but made a public member due to the
         // difficulty of making friends of the heavily templated SFINAE wrapper code.
 
-        virtual void create(max::t_class* c, max::method getter, max::method setter, bool isjitclass = 0) = 0;
+        virtual void create(max::t_class* c, const max::method getter, const max::method setter, const bool isjitclass = 0) = 0;
 
 
         /// Determine the name of the datatype
@@ -204,7 +222,7 @@ namespace c74::min {
         /// Is the attribute visible?
         /// @return The attribute's current visibility flag.
 
-        visibility visible() {
+        visibility visible() const {
             return m_visibility;
         }
 
@@ -214,9 +232,15 @@ namespace c74::min {
         /// @return The attribute's label.
         ///			If the attribute has no label then the name of the object is used as the default.
 
-        const char* label_string() {
+        const char* label_string() const {
             return m_title;
         }
+
+
+        /// Fetch the default value as a string.
+        /// @return The attribute value as a string.
+
+        virtual string default_string() const = 0;
 
 
         /// Return the provided description for use in documentation generation, auto-complete, etc.
@@ -251,6 +275,13 @@ namespace c74::min {
         }
 
 
+        /// Return the live color name if a mapping to a live color was defined for this attribute.
+        /// @return The live color name or the empty symbol if no mapping was defined.
+
+        symbol live_color_mapping() const { 
+            return m_live_color;
+        }
+
         /// Touch the attribute to force an update and notification of its value to any listeners.
 
         void touch() {
@@ -271,18 +302,18 @@ namespace c74::min {
         style        m_style { style::none };   // display style in Max
         symbol       m_category;                // Max inspector category
         int          m_order { 0 };             // Max inspector ordering
-
+		symbol       m_live_color { k_sym__empty };
 
         // calculate the offset of the size member as required for array/vector attributes
 
-        size_t size_offset() {
+        size_t size_offset() const {
             return (&m_size) - reinterpret_cast<size_t*>(&m_owner);
         }
 
 
         // return flags required by the max/obex attribute to get the correct behavior
 
-        std::size_t flags(bool isjitclass) {
+        std::size_t flags(bool isjitclass) const {
             auto attrflags = 0;
 
             if (!writable()) {
@@ -304,7 +335,7 @@ namespace c74::min {
     class attribute_threadsafe_helper;
 
     template<typename T, threadsafe threadsafety, template<typename> class limit_type, allow_repetitions repetitions>
-    void attribute_threadsafe_helper_do_set(attribute_threadsafe_helper<T, threadsafety, limit_type, repetitions>* helper, atoms& args);
+    void attribute_threadsafe_helper_do_set(attribute_threadsafe_helper<T, threadsafety, limit_type, repetitions>* helper, const atoms& args);
 
 
     /// An Attribute.
@@ -331,7 +362,7 @@ namespace c74::min {
 
         template<typename argument_type>
         constexpr typename enable_if<is_same<argument_type, title>::value>::type assign_from_argument(const argument_type& arg) noexcept {
-            const_cast<symbol&>(m_title) = arg;
+            m_title = arg;
         }
 
 
@@ -339,7 +370,7 @@ namespace c74::min {
 
         template<typename argument_type>
         constexpr typename enable_if<is_same<argument_type, description>::value>::type assign_from_argument(const argument_type& arg) noexcept {
-            const_cast<argument_type&>(m_description) = arg;
+            m_description = arg;
         }
 
 
@@ -347,7 +378,7 @@ namespace c74::min {
 
         template<typename argument_type>
         constexpr typename enable_if<is_same<argument_type, range>::value>::type assign_from_argument(const argument_type& arg) noexcept {
-            const_cast<argument_type&>(m_range_args) = arg;
+            m_range_args = arg;
         }
 
 
@@ -356,63 +387,71 @@ namespace c74::min {
 
         template<typename argument_type>
         constexpr typename enable_if<is_same<argument_type, enum_map>::value>::type assign_from_argument(const argument_type& arg) noexcept {
-            const_cast<argument_type&>(m_enum_map) = arg;
+            m_enum_map = arg;
         }
 
 
-        // constructor utility: handle an argument defining a attribute's setter function
+        // constructor utility: handle an argument defining an attribute's setter function
 
         template<typename argument_type>
         constexpr typename enable_if<is_same<argument_type, setter>::value>::type assign_from_argument(const argument_type& arg) noexcept {
             const_cast<argument_type&>(m_setter) = arg;
         }
 
-        // constructor utility: handle an argument defining a attribute's getter function
+        // constructor utility: handle an argument defining an attribute's getter function
 
         template<typename argument_type>
         constexpr typename enable_if<is_same<argument_type, getter>::value>::type assign_from_argument(const argument_type& arg) noexcept {
-            const_cast<argument_type&>(m_getter) = arg;
+            m_getter = arg;
         }
 
 
-        // constructor utility: handle an argument defining a attribute's readonly property
+        // constructor utility: handle an argument defining an attribute's readonly property
 
         template<typename argument_type>
         constexpr typename enable_if<is_same<argument_type, readonly>::value>::type assign_from_argument(const argument_type& arg) noexcept {
-            const_cast<argument_type&>(m_readonly) = arg;
+            m_readonly = arg;
         }
 
 
-        // constructor utility: handle an argument defining a attribute's visibility property
+        // constructor utility: handle an argument defining an attribute's visibility property
 
         template<typename argument_type>
         constexpr typename enable_if<is_same<argument_type, visibility>::value>::type assign_from_argument(const argument_type& arg) noexcept {
-            const_cast<argument_type&>(m_visibility) = arg;
+            m_visibility = arg;
         }
 
 
-        // constructor utility: handle an argument defining a attribute's style property
+        // constructor utility: handle an argument defining an attribute's style property
 
         template<typename argument_type>
         constexpr typename enable_if<is_same<argument_type, style>::value>::type assign_from_argument(const argument_type& arg) noexcept {
-            const_cast<argument_type&>(m_style) = arg;
+            m_style = arg;
         }
 
 
-        // constructor utility: handle an argument defining a attribute's category property
+        // constructor utility: handle an argument defining an attribute's category property
 
         template<typename argument_type>
         constexpr typename enable_if<is_same<argument_type, category>::value>::type assign_from_argument(const argument_type& arg) noexcept {
-            const_cast<argument_type&>(m_category) = arg;
+            m_category = arg;
         }
 
 
-        // constructor utility: handle an argument defining a attribute's order property
+        // constructor utility: handle an argument defining an attribute's order property
 
         template<typename argument_type>
         constexpr typename enable_if<is_same<argument_type, order>::value>::type assign_from_argument(const argument_type& arg) noexcept {
-            const_cast<argument_type&>(m_order) = arg;
+           m_order = arg;
         }
+
+        
+        // constructor utility: handle an argument defining an attribute's live_color property
+
+		template<typename argument_type>
+		constexpr typename enable_if<is_same<argument_type, live_color>::value>::type assign_from_argument(const argument_type& arg) noexcept {
+			m_live_color = static_cast<symbol>(arg);
+		}
 
 
         // constructor utility: empty argument handling (required for handling recursive variadic templates)
@@ -440,7 +479,7 @@ namespace c74::min {
         /// @param args				N arguments specifying optional properties of an attribute such as setter, label, style, etc.
 
         template<typename... ARGS>
-        attribute(object_base* an_owner, std::string a_name, T a_default_value, ARGS... args);
+        attribute(object_base* an_owner, const std::string a_name, const T a_default_value, ARGS... args);
 
 
         attribute(const attribute& other)  = delete;    // no copying allowed!
@@ -452,7 +491,7 @@ namespace c74::min {
         // create the peer Max attribute and add it to the Max class.
         // It is made 'public' due to the trickiness of the SFINAE-enabled templated functions which call this from the wrapper.
 
-        void create(max::t_class* c, max::method getter, max::method setter, bool isjitclass = 0);
+        void create(max::t_class* c, const max::method getter, const max::method setter, bool isjitclass = 0) override;
 
 
         /// Get the range of the attribute.
@@ -463,12 +502,18 @@ namespace c74::min {
             return m_range;
         }
 
+        void set_range(const std::vector<T>& range) {
+            m_range = range;
+            const auto value = static_cast<atoms>(*this);
+            set(value);
+        }
+
 
         // DO NOT USE
         // This is an internal method used to fetch the range in string format when creating the peer Max attribute.
         // It is made 'public' due to the trickiness of the SFINAE-enabled templated functions which call this from the wrapper.
 
-        std::string range_string();
+        std::string range_string() const override;
 
 
         // DO NOT USE
@@ -481,6 +526,13 @@ namespace c74::min {
         }
 
 
+        string default_string() const override {
+            auto as = to_atoms(m_default);
+            auto s = to_string(as);
+            return s;
+        }
+
+
         // Returns the strings associated with an enum attribute.
         // Only available for enum attributes.
         // @return A copy of the enum_map.
@@ -489,7 +541,7 @@ namespace c74::min {
         // It isn't clear that it is actually useful outside of this context, so not officially documenting it.
 
         template<class U = T, typename enable_if<is_enum<U>::value, int>::type = 0>
-        enum_map get_enum_map() {
+        enum_map get_enum_map() const {
             return m_enum_map;
         }
 
@@ -507,18 +559,8 @@ namespace c74::min {
         /// Set the attribute value using atoms.
         /// @param	args	The new value to be assigned to the attribute.
 
-        attribute& operator=(atoms& args) {
-            set(args);
-            return *this;
-        }
-
-
-        /// Set the attribute value using atoms.
-        /// @param	args	The new value to be assigned to the attribute.
-
-        attribute& operator=(const atoms& args) {
-            atoms as{args};
-            set(as);
+        attribute& operator=(const atoms& args) override {
+           set(args);
             return *this;
         }
 
@@ -527,7 +569,7 @@ namespace c74::min {
         // converts from the name to the index and then calls the above assignment operator
 
         template<class U = T, typename enable_if<is_enum<U>::value, int>::type = 0>
-        attribute& operator=(symbol arg) {
+        attribute& operator=(const symbol arg) {
             for (auto i = 0; i < m_enum_map.size(); ++i) {
                 if (arg == m_enum_map[i]) {
                     *this = static_cast<T>(i);
@@ -541,6 +583,7 @@ namespace c74::min {
         /// Set the attribute value using atoms.
         /// Permits additional control as compared with using the assignment operators.
         /// @param	args				The new value to be assigned to the attribute.
+        ///                             May be modified by this call when optional range-limiting is applied.
         /// @param	notify				Notify the Max environment when the attribute is set.
         ///								This is performed by setting the attribute value using the standard Max API call.
         ///								If you are setting the value internally to your class you may wish to turn this off to reduce computational
@@ -549,17 +592,17 @@ namespace c74::min {
         ///								Setting this to true will allow you to override the readonly flag and set the attribute value
         ///anyway.
 
-        void set(atoms& args, bool notify = true, bool override_readonly = false) {
+        void set(const atoms& args, const bool notify = true, const bool override_readonly = false) override {
             if (!writable() && !override_readonly)
                 return;    // we're all done... unless this is a readonly attr that we are forcing to update
 
-            if (repetitions == allow_repetitions::no && compare_to_current_value(args))
+            if (repetitions == allow_repetitions::no && compare_to_current_value(constrain(args)))
                 return;
 
 #ifndef MIN_TEST    // At this time the Mock Kernel does not implement object_attr_setvalueof(), so we can't use it for unit tests
             if (notify && this_class) {    // Use the Max API to set the attribute value
                 max::object_attr_setvalueof(
-                    m_owner, m_name, static_cast<long>(args.size()), static_cast<const c74::max::t_atom*>(&args[0]));
+                    m_owner, m_name, static_cast<long>(args.size()), (c74::max::t_atom*)&args[0]);
             }
             else
 #endif           // !MIN_TEST
@@ -600,7 +643,7 @@ namespace c74::min {
         /// Get the attribute value as a vector of atoms.
         /// @return	The value of the attribute.
 
-        operator atoms() const {
+        operator atoms() const override {
             if (m_getter)
                 return m_getter();
             else
@@ -645,7 +688,7 @@ namespace c74::min {
         /// @return			A writable reference to the value at an index of the attribute.
 
         template<class U = T, typename enable_if<is_same<U, numbers>::value, int>::type = 0>
-        double& operator[](size_t index) {
+        double& operator[](const size_t index) {
             return m_value[index];
         }
 
@@ -654,7 +697,7 @@ namespace c74::min {
         /// @return          A writable reference to the value at an index of the attribute.
 
         template<class U = T, typename enable_if<is_same<U, ints>::value, int>::type = 0>
-        double& operator[](size_t index) {
+        int& operator[](const size_t index) {
             return m_value[index];
         }
 
@@ -671,19 +714,20 @@ namespace c74::min {
         /// This will result in the attribute being "grayed-out" in the inspector.
         /// @param	value	Pass true to disable the attribute. Otherwise pass false to make it active.
 
-        void disable(bool value) {
+        void disable(const bool value) {
             c74::max::object_attr_setdisabled(m_owner, m_name, value);
         }
 
 
     private:
         T              m_value;         // The actual data wrapped by this attribute.
+        T              m_default;       // The default value for this attribute.
         atoms          m_range_args;    // The range/enum as provided by the owning Min object.
         std::vector<T> m_range;         // The range/enum translated into the native datatype.
         enum_map       m_enum_map;      // The enum mapping for indexed enums (as opposed to symbol enums).
         attribute_threadsafe_helper<T, threadsafety, limit_type, repetitions> m_helper{this};    // Attribute setting implementation for the specified threadsafety.
 
-        friend void attribute_threadsafe_helper_do_set<T, threadsafety, limit_type, repetitions>(attribute_threadsafe_helper<T, threadsafety, limit_type, repetitions>* helper, atoms& args);
+        friend void attribute_threadsafe_helper_do_set<T, threadsafety, limit_type, repetitions>(attribute_threadsafe_helper<T, threadsafety, limit_type, repetitions>* helper, const atoms& args);
 
 
         // Copy m_range_args to m_range when the attribute is created.
@@ -694,15 +738,15 @@ namespace c74::min {
 
         // Implemented in c74_min_attribute_impl.h.
 
-        bool compare_to_current_value(const atoms& args);
+        bool compare_to_current_value(const atoms& args) const;
 
 
         // Apply range limiting to all numerical types.
         // Optimization for the most common case: no limiting at all.
 
         template<class U = T, typename enable_if<is_same<limit_type<U>, limit::none<U>>::value, int>::type = 0>
-        void constrain(atoms& args) {
-            // no limiting, so do nothing
+        atoms constrain(const atoms& args) const {
+			return args;
         }
 
 
@@ -710,9 +754,9 @@ namespace c74::min {
         // Note that enums are already range-limited within the min::atom.
 
         template<class U = T, typename enable_if<!is_same<limit_type<U>, limit::none<U>>::value, int>::type = 0>
-        void constrain(atoms& args) {
-            // TODO: type checking on the above so that it is not applied to vectors or colors
-            args[0] = limit_type<T>::apply(args[0], m_range[0], m_range[1]);
+        atoms constrain(const atoms& args) const {
+            static_assert(std::is_arithmetic<T>::value, "limiting can only be applied to arithmetic types");
+            return {limit_type<T>::apply(args[0], m_range[0], m_range[1])};
         }
 
 
@@ -774,16 +818,18 @@ namespace c74::min {
     // Shared code used by all of the various incarnations of attribute_threadsafe_helper
     // to set an attribute.
 
+    // args may be modified as a side-effect of calling this method (e.g. for range limiting)
+
     template<typename T, threadsafe threadsafety, template<typename> class limit_type, allow_repetitions repetitions>
-    void attribute_threadsafe_helper_do_set(attribute_threadsafe_helper<T, threadsafety, limit_type, repetitions>* helper, atoms& args) {
+    void attribute_threadsafe_helper_do_set(attribute_threadsafe_helper<T, threadsafety, limit_type, repetitions>* helper, const atoms& args) {
         auto& attr = *helper->m_attribute;
 
-        attr.constrain(args);
+        const auto constrained_args = attr.constrain(args);
 
         if (attr.m_setter)
-            attr.m_value = from_atoms<T>(attr.m_setter(args, -1));
+            attr.m_value = from_atoms<T>(attr.m_setter(constrained_args, -1));
         else
-            attr.assign(args);
+            attr.assign(constrained_args);
     }
 
 
@@ -794,14 +840,14 @@ namespace c74::min {
 
     template<typename T, template<typename> class limit_type, allow_repetitions repetitions>
     class attribute_threadsafe_helper<T, threadsafe::yes, limit_type, repetitions> {
-        friend void attribute_threadsafe_helper_do_set<T, threadsafe::yes, limit_type>(attribute_threadsafe_helper<T, threadsafe::yes, limit_type, repetitions>* helper, atoms& args);
+        friend void attribute_threadsafe_helper_do_set<T, threadsafe::yes, limit_type>(attribute_threadsafe_helper<T, threadsafe::yes, limit_type, repetitions>* helper, const atoms& args);
 
     public:
         explicit attribute_threadsafe_helper(attribute<T, threadsafe::yes, limit_type, repetitions>* an_attribute)
         : m_attribute(an_attribute)
         {}
 
-        void set(atoms& args) {
+        void set(const atoms& args) {
             attribute_threadsafe_helper_do_set(this, args);
         }
 
@@ -826,7 +872,7 @@ namespace c74::min {
 
     template<typename T, template<typename> class limit_type, allow_repetitions repetitions>
     class attribute_threadsafe_helper<T, threadsafe::no, limit_type, repetitions> {
-        friend void attribute_threadsafe_helper_do_set<T, threadsafe::no, limit_type>(attribute_threadsafe_helper<T, threadsafe::no, limit_type, repetitions>* helper, atoms& args);
+        friend void attribute_threadsafe_helper_do_set<T, threadsafe::no, limit_type>(attribute_threadsafe_helper<T, threadsafe::no, limit_type, repetitions>* helper, const atoms& args);
         friend void attribute_threadsafe_helper_qfn<T, threadsafe::no, limit_type, repetitions>(attribute_threadsafe_helper<T, threadsafe::no, limit_type, repetitions>* helper);
 
     public:
@@ -839,7 +885,7 @@ namespace c74::min {
             max::qelem_free(m_qelem);
         }
 
-        void set(atoms& args) {
+        void set(const atoms& args) {
             if (max::systhread_ismainthread())
                 attribute_threadsafe_helper_do_set(this, args);
             else {
@@ -861,7 +907,7 @@ namespace c74::min {
 
     template<typename T, template<typename> class limit_type, allow_repetitions repetitions>
     class attribute_threadsafe_helper<T, threadsafe::undefined, limit_type, repetitions> {
-        friend void attribute_threadsafe_helper_do_set<T, threadsafe::undefined, limit_type, repetitions>(attribute_threadsafe_helper<T, threadsafe::undefined, limit_type, repetitions>* helper, atoms& args);
+        friend void attribute_threadsafe_helper_do_set<T, threadsafe::undefined, limit_type, repetitions>(attribute_threadsafe_helper<T, threadsafe::undefined, limit_type, repetitions>* helper, const atoms& args);
         friend void attribute_threadsafe_helper_qfn<T, threadsafe::undefined, limit_type, repetitions>(attribute_threadsafe_helper<T, threadsafe::undefined, limit_type, repetitions>* helper);
 
     public:
@@ -874,7 +920,7 @@ namespace c74::min {
             max::qelem_free(m_qelem);
         }
 
-        void set(atoms& args) {
+        void set(const atoms& args) {
             if (m_attribute->owner().is_assumed_threadsafe() || max::systhread_ismainthread())
                 attribute_threadsafe_helper_do_set(this, args);
             else {
@@ -900,9 +946,9 @@ namespace c74::min {
 
     template<class T>
     max::t_max_err min_attr_getter(minwrap<T>* self, max::t_object* maxattr, long* ac, max::t_atom** av) {
-        symbol	attr_name	= static_cast<max::t_symbol*>(max::object_method(maxattr, k_sym_getname));
-        auto&	attr		= self->m_min_object.attributes()[attr_name.c_str()];
-        atoms	rvals		= *attr;
+        const symbol	attr_name	= static_cast<const max::t_symbol*>(max::object_method(maxattr, k_sym_getname));
+        auto&	        attr		= self->m_min_object.attributes()[attr_name.c_str()];
+        atoms	        rvals		= *attr;
 
         if ((*ac) != rvals.size() || !(*av)) {		 // otherwise use memory passed in
             if (*ac && *av) {
@@ -924,12 +970,12 @@ namespace c74::min {
     //	Native Max methods for the wrapper class to perform setting of attribute values
 
     template<class T>
-    max::t_max_err min_attr_setter(minwrap<T>* self, max::t_object* maxattr, long ac, max::t_atom* av) {
-        atom_reference args(ac, av);
-        symbol         attr_name = static_cast<max::t_symbol*>(max::object_method(maxattr, k_sym_getname));
-        auto           attr      = self->m_min_object.attributes()[attr_name.c_str()];
+    max::t_max_err min_attr_setter(minwrap<T>* self, max::t_object* maxattr, const long ac, const max::t_atom* av) {
+		const symbol attr_name { static_cast<const max::t_symbol*>(max::object_method(maxattr, k_sym_getname)) };
+		auto         attr      { self->m_min_object.attributes()[attr_name.c_str()] };
 
         if (attr) {
+			const atom_reference args(ac, const_cast<max::t_atom*>(av)); // atom_reference cannot guarantee constness, but we are only using it copy atoms out on the line below
             atoms as(args.begin(), args.end());
             attr->set(as, false, false);
         }

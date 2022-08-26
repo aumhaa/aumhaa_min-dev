@@ -26,6 +26,9 @@ namespace max {
         ;
     }
 
+    MOCK_EXPORT void qelem_unset(t_qelem* q) {}
+
+    MOCK_EXPORT void* scheduler_fromobject(t_object* x) { return nullptr; }
 
     MOCK_EXPORT short systhread_ismainthread(void) {
         return true;
@@ -116,9 +119,9 @@ namespace max {
 
 
 
-    MOCK_EXPORT void attr_args_process(void* x, short ac, t_atom* av) {}
+    MOCK_EXPORT void attr_args_process(void* x, const short ac, const t_atom* av) {}
 
-    MOCK_EXPORT long attr_args_offset(short ac, t_atom* av) {
+    MOCK_EXPORT long attr_args_offset(const short ac, const t_atom* av) {
         return 0;
     }
 
@@ -127,7 +130,23 @@ namespace max {
 
     MOCK_EXPORT void attr_dictionary_check(void* x, t_dictionary* d) {}
 
-    MOCK_EXPORT t_dictionary* object_dictionaryarg(long ac, t_atom* av) {
+    MOCK_EXPORT t_object* attribute_new_parse(const char* attrname, t_symbol* type, long flags, const char* parsestr) {
+        return nullptr;
+    }
+
+    MOCK_EXPORT t_class *class_findbyname(t_symbol *name_space, t_symbol *classname) {
+        return nullptr;
+    }
+
+    MOCK_EXPORT t_max_err class_sticky(t_class* x, t_symbol* stickyname, t_symbol* s, t_object* o) {
+        return 0;
+    }
+
+    MOCK_EXPORT t_max_err class_sticky_clear(t_class* x, t_symbol* stickyname, t_symbol* s) {
+        return 0;
+    }
+
+    MOCK_EXPORT t_dictionary* object_dictionaryarg(const long ac, const t_atom* av) {
         return nullptr;
     }
 
@@ -156,6 +175,7 @@ namespace max {
         return nullptr;
     }
 
+    MOCK_EXPORT t_max_err object_obex_storeflags(void *x,t_symbol *key, t_object *val, long flags) { return 0; }
 
     using t_jit_object = t_object;
     using t_jit_err = long;
@@ -203,6 +223,10 @@ namespace max {
         return 0;
     }
 
+    MOCK_EXPORT t_max_err class_attr_get(t_class* x, t_symbol* attrname) {
+        return 0;
+    }
+
     MOCK_EXPORT void class_time_addattr(t_class *c, char *attrname, char *attrlabel, long flags) {
         return;
     }
@@ -212,21 +236,73 @@ namespace max {
         return 0;
     }
 
+    MOCK_EXPORT t_max_err class_parameter_register_default_color(t_class* c, t_symbol* attrname, t_symbol* colorname) {
+        return 0;
+    }
 
+    MOCK_EXPORT t_max_err object_parameter_color_get(t_object* x, t_symbol* s, t_jrgba* rgba) { 
+        return 0;
+    }
 
 
 
     using t_jbox = t_object;
 
 
+    MOCK_EXPORT t_max_err jbox_new(t_jbox* b, long flags, long argc, t_atom* argv) { return 0; }
+    MOCK_EXPORT void jbox_free(t_jbox *b) {}
     MOCK_EXPORT void jbox_ready(t_jbox* b) {}
+    MOCK_EXPORT void jbox_initclass(t_jbox* b) {}
+    MOCK_EXPORT void jbox_redraw(t_jbox* b) {}
 
 
+    using t_jgraphics = t_object;
+    using t_jgraphics_format = int;
+    using t_jgraphics_line_join = int;
+    using t_jgraphics_line_cap = int;
+    struct t_jrgba;
+    struct t_jsurface;
 
+    MOCK_EXPORT void jgraphics_set_line_cap(t_jgraphics* g, t_jgraphics_line_cap line_cap) {}
+    MOCK_EXPORT void jgraphics_set_line_join(t_jgraphics* g, t_jgraphics_line_join line_join) {}
+    MOCK_EXPORT void jgraphics_set_line_width(t_jgraphics* g, double width) {}
+    MOCK_EXPORT void jgraphics_line_to(t_jgraphics* g, double x, double y) {}
+    MOCK_EXPORT void jgraphics_line_draw_fast(t_jgraphics* g, double x1, double y1, double x2, double y2, double linewidth) {}
+    MOCK_EXPORT void jgraphics_move_to(t_jgraphics* g, double x, double y) {}
+    MOCK_EXPORT void jgraphics_rectangle_rounded(t_jgraphics* g, double x, double y, double width, double height, double ovalwidth, double ovalheight) {}
+    MOCK_EXPORT void jgraphics_rectangle(t_jgraphics *g, double x, double y, double width, double height) {}
+    MOCK_EXPORT void jgraphics_ellipse(t_jgraphics* g, double x, double y, double width, double height) {}
+    MOCK_EXPORT void jgraphics_rectangle_fill_fast(t_jgraphics* g, double x, double y, double width, double height) {}
+    MOCK_EXPORT void jgraphics_fill(t_jgraphics* g) {}
+    MOCK_EXPORT void jgraphics_fill_preserve(t_jgraphics* g) {}
+    MOCK_EXPORT void jgraphics_stroke(t_jgraphics* g) {}
+    MOCK_EXPORT void jgraphics_set_source_jrgba(t_jgraphics* g, t_jrgba* rgba) {}
+    MOCK_EXPORT t_jsurface* jgraphics_image_surface_create(t_jgraphics_format format, int width, int height) {
+		return nullptr;
+    }
+    MOCK_EXPORT void jgraphics_surface_destroy(const t_jsurface* surface) {}
 
+     MOCK_EXPORT unsigned char* jgraphics_image_surface_lockpixels(
+		t_jsurface* s, int x, int y, int width, int height, int* linestride, int* pixelstride) {
+		return nullptr;
+	}
 
+	MOCK_EXPORT void jgraphics_image_surface_unlockpixels(t_jsurface* s, unsigned char* data) {}
 
+	MOCK_EXPORT void jgraphics_image_surface_draw(t_jgraphics* g, t_jsurface* s, t_rect srcRect, t_rect destRect) { }
 
+    MOCK_EXPORT void jgraphics_image_surface_clear(t_jsurface* s, int x, int y, int width, int height) { }
+
+    MOCK_EXPORT int jgraphics_image_surface_get_width(t_jsurface* s) { return 0; }
+    MOCK_EXPORT int jgraphics_image_surface_get_height(t_jsurface* s) { return 0; }
+
+    MOCK_EXPORT t_jgraphics* jgraphics_create(t_jsurface* target) { return nullptr; }
+    MOCK_EXPORT void jgraphics_destroy(t_jgraphics* g) { }
+
+    MOCK_EXPORT t_max_err jbox_invalidate_layer(t_object* b, t_object* view, t_symbol* name) { return 0; }
+    MOCK_EXPORT t_jgraphics* jbox_start_layer(t_object* b, t_object* view, t_symbol* name, double width, double height) { return nullptr; }
+    MOCK_EXPORT t_max_err jbox_end_layer(t_object* b, t_object* view, t_symbol* name) { return 0; }
+    MOCK_EXPORT t_max_err jbox_paint_layer(t_object* b, t_object* view, t_symbol* name, double x, double y) { return 0; }
 
     MOCK_EXPORT void max_jit_obex_gimmeback_dumpout(void *x, t_symbol *s, long ac, t_atom *av) {
         return;

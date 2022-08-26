@@ -64,18 +64,15 @@ namespace c74::min {
 
     // c-style callback from the max kernel (clock for the min::timer class)
 
-    void timer_tick_callback(timer<>* a_timer) {
-        if (a_timer->should_defer())
-            a_timer->defer();
-        else
-            a_timer->tick();
+    void timer_tick_callback(timer_impl* a_timer) {
+        a_timer->m_owner->tick_callback();
     }
 
 
     // c-style callback from the max kernel (qelem for the min::timer class)
 
-    void timer_qfn_callback(timer<>* a_timer) {
-        a_timer->tick();
+    void timer_qfn_callback(timer_impl* a_timer) {
+        a_timer->m_owner->qfn_callback();
     }
 
 
@@ -110,13 +107,13 @@ namespace c74::min {
 #endif
 
 
-    bool atom::operator==(max::t_symbol* s) const {
+    bool atom::operator==(const max::t_symbol* s) const {
         return atom_getsym(this) == s;
     }
 
 
-    bool atom::operator==(symbol s) const {
-        return atom_getsym(this) == (max::t_symbol*)s;
+    bool atom::operator==(const symbol s) const {
+        return atom_getsym(this) == (const max::t_symbol*)s;
     }
 
 
@@ -125,37 +122,37 @@ namespace c74::min {
     }
 
 
-    bool atom::operator==(bool value) const {
+    bool atom::operator==(const bool value) const {
         return (atom_getlong(this) != 0) == value;
     }
 
 
-    bool atom::operator==(int value) const {
+    bool atom::operator==(const int value) const {
         return atom_getlong(this) == value;
     }
 
 
-    bool atom::operator==(long value) const {
+    bool atom::operator==(const long value) const {
         return atom_getlong(this) == value;
     }
 
 
-    bool atom::operator==(double value) const {
+    bool atom::operator==(const double value) const {
         return atom_getfloat(this) == value;
     }
 
 
-    bool atom::operator==(max::t_object* value) const {
+    bool atom::operator==(const max::t_object* value) const {
         return atom_getobj(this) == value;
     }
 
 
     bool atom::operator==(const max::t_atom& b) const {
-        return this->a_type == this->a_type && this->a_w.w_obj == b.a_w.w_obj;
+        return this->a_type == b.a_type && this->a_w.w_obj == b.a_w.w_obj;
     }
 
 
-    bool atom::operator==(time_value value) const {
+    bool atom::operator==(const time_value value) const {
         const max::t_atom& a = *this;
         return atom_getfloat(&a) == static_cast<double>(value);
     }
@@ -211,13 +208,13 @@ namespace c74::min {
     // implementation of sample_operator-style calls made to a vector_operator
 
     template<placeholder vector_operator_placeholder_type>
-    sample vector_operator<vector_operator_placeholder_type>::operator()(sample x) {
-        sample       input_storage[1]   { x };
-        sample       output_storage[1]  {};
-        sample*      input              { input_storage };
-        sample*      output             { output_storage };
-        audio_bundle input_bundle       { &input, 1, 1 };
-        audio_bundle output_bundle      { &output, 1, 1 };
+    sample vector_operator<vector_operator_placeholder_type>::operator()(const sample x) {
+        sample        input_storage[1]   { x };
+        sample        output_storage[1]  {};
+        sample*       input              { input_storage };
+        sample*       output             { output_storage };
+        audio_bundle  input_bundle       { &input, 1, 1 };
+        audio_bundle  output_bundle      { &output, 1, 1 };
 
         (*this)(input_bundle, output_bundle);
 

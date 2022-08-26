@@ -10,13 +10,13 @@ namespace c74::min {
     class dict {
     public:
         /// Create (or reference an existing) dictionary by name
-        dict(symbol name) {
+        dict(const symbol name) {
             auto d = max::dictobj_findregistered_retain(name);
 
             if (!d) {    // didn't find a dictionary with that name, so create it
-                d                = max::dictionary_new();
-                max::t_symbol* s = name;
-                m_instance       = max::dictobj_register(d, &s);
+                d                 = max::dictionary_new();
+                max::t_symbol* s  = name;
+                m_instance        = max::dictobj_register(d, &s);
             }
             else {
                 m_instance = d;
@@ -24,19 +24,19 @@ namespace c74::min {
         }
 
         /// Create an unregistered dictionary from dict-syntax
-        dict(atoms content) {
+        dict(const atoms& content) {
             max::dictobj_dictionaryfromatoms(&m_instance, static_cast<long>(content.size()), &content[0]);
         }
 
         /// Create an unregistered dictionary
         /// @param d				optionally getting a handle to an old-school t_dictionary
         /// @param take_ownership	defaults to true, change to false only in exceptional cases
-        dict(max::t_dictionary* d = nullptr, bool take_ownership = true) {
+        dict(max::t_dictionary* d = nullptr, const bool take_ownership = true) {
             if (d == nullptr)
                 m_instance = max::dictionary_new();
             else {
                 if (take_ownership)
-                    max::object_retain(d);
+                    max::object_retain((max::t_object*)d);
                 else
                     m_has_ownership = false;
                 m_instance = d;
@@ -44,12 +44,12 @@ namespace c74::min {
         }
 
 
-        dict(atom an_atom_containing_a_dict) {
-            auto a     = static_cast<max::t_atom*>(&an_atom_containing_a_dict);
+        dict(const atom an_atom_containing_a_dict) {
+            auto a     = static_cast<const max::t_atom*>(&an_atom_containing_a_dict);
             m_instance = static_cast<max::t_dictionary*>(max::atom_getobj(a));
             if (!m_instance)
                 error("no dictionary in atom");
-            auto err = max::object_retain(m_instance);
+            auto err = max::object_retain((max::t_object*)m_instance);
             error(err, "failed to retain dictionary instance");
         }
 
@@ -68,7 +68,7 @@ namespace c74::min {
 
         dict& operator=(const atom& value) {
             auto a = static_cast<const max::t_atom*>(&value);
-            if (max::atomisdictionary(a))
+            if (max::atomisdictionary((max::t_atom *)a))
                 m_instance = static_cast<max::t_dictionary*>(max::atom_getobj(a));
             return *this;
         }
@@ -82,13 +82,13 @@ namespace c74::min {
         // TODO: we don't have a copy constructor!
 
         operator max::t_object*() const {
-            max::object_retain(m_instance);
-            return static_cast<max::t_object*>(m_instance);
+            max::object_retain((max::t_object*)m_instance);
+            return (max::t_object*)m_instance;
         }
 
 
         // bounds check: if key doesn't exist, throw
-        atom_reference at(symbol key) {
+        atom_reference at(const symbol key) {
             long         argc = 0;
             max::t_atom* argv = nullptr;
             auto         err  = max::dictionary_getatoms(m_instance, key, &argc, &argv);
@@ -111,12 +111,12 @@ namespace c74::min {
         };
 
 
-        symbol name() {
+        symbol name() const {
             return dictobj_namefromptr(m_instance);
         }
 
 
-        bool valid() {
+        bool valid() const {
             return m_instance != nullptr;
         }
 
@@ -134,6 +134,16 @@ namespace c74::min {
         void touch() {
             object_notify(m_instance, k_sym_modified, nullptr);
         }
+
+
+		/// Register an existing dictionary
+		/// @param name   name to register the dictionary under
+		void register_as(const symbol name) {
+			if (m_instance != nullptr) {
+				max::t_symbol* s = name;
+				m_instance = max::dictobj_register(m_instance, &s);
+			}
+		}
 
 
     private:

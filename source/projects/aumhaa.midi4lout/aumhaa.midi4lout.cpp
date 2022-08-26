@@ -15,6 +15,8 @@ std::queue <int> midi_messages;
 
 std::vector<unsigned char>  m4m_message {};
 
+bool vport_is_open = false;
+
 class midi4lout : public object<midi4lout> {
     
 
@@ -116,6 +118,7 @@ public:
     //assign the port internally and set its callback.
     void assign_port (string stored_portname) {
         midiout->closePort();
+        vport_is_open = false;
         if (stored_portname == "None") {
             midiout->closePort();
         }
@@ -129,7 +132,7 @@ public:
                     if(stored_portname==portName){
                         found = true;
                         midiout->openPort(i, portName);
-                        cout << portName + "opened!" << endl;
+                        cout << portName + " opened!" << endl;
                     }
                 }
                 catch ( RtMidiError &error ) {
@@ -138,8 +141,10 @@ public:
             }
             if(!found){
                 try {
+                    //midiout->openVirtualPort(stored_portname);
                     midiout->openVirtualPort(stored_portname);
-                    cout << stored_portname + "opened!" << endl;
+                    vport_is_open = true;
+                    cout << stored_portname + " opened!" << endl;
                 }
                 catch ( RtMidiError &error ) {
                     error.printMessage();
@@ -220,7 +225,7 @@ public:
         int stored_message_size = m4m_message.size();
 
         if(stored_message_size>1){
-            if ( midiout->isPortOpen() ) {
+            if ( midiout->isPortOpen() || vport_is_open) {
                 for (int i=0; i<stored_message_size; i++) {
                     x = m4m_message[i];
                     a = static_cast<unsigned char>(x);
@@ -251,10 +256,10 @@ public:
             unsigned char a;
             std::vector<unsigned char>  msg {};
             int length = args.size();
-            cout << "length of list is: " + std::to_string(length) << endl;
+//            cout << "length of list is: " + std::to_string(length) << endl;
             
             if(length>1){
-                if ( midiout->isPortOpen() ) {
+                if ( midiout->isPortOpen() || vport_is_open) {
                     for (int i=0; i<length; i++) {
                         x = args[i];
                         a = static_cast<unsigned char>(x);

@@ -26,14 +26,48 @@ namespace c74::min {
         /// @param	an_owner	The owning object for the buffer reference. Typically you will pass `this`.
         /// @param	a_function	An optional function to be executed when the buffer reference issues notifications.
         ///						Typically the function is defined using a C++ lambda with the #MIN_FUNCTION signature.
-
+        /// @param	create_messages	Optionally have min create "set", "dblclick" and "notify" messages on `an_owner` and
+        ///                         associate them with this buffer references.
+        ///                         *NOTE* if your owner uses the notify method or has multiple buffers, you'll need to set 
+        ///                         this to false and set up your own notify method handling.
         // takes a single arg, but cannot be marked explicit unless we are willing to decorate all using code with a cast to this type
         // thus we ignore the advice of C.46 @ https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md
 
-        buffer_reference(object_base* an_owner, const function& a_function = nullptr)
+        buffer_reference(object_base* an_owner, const function& a_function = nullptr, const bool create_messages = true)
         : m_owner { *an_owner }
         , m_notification_callback { a_function }
-        {}
+        {
+            if (create_messages) {
+                // Messages added to the owning object for this buffer~ reference
+
+                m_set_meth = std::make_unique<message<>>(&m_owner, "set", "Choose a named buffer~ from which to read.",
+                     MIN_FUNCTION {
+                        set(args[0]);
+                        return {};
+                     }
+                );
+
+                m_dblclick_meth = std::make_unique<message<>>(&m_owner, "dblclick",
+                     MIN_FUNCTION {
+                         max::buffer_view(max::buffer_ref_getobject(m_instance));
+                         return {};
+                     }
+                 );
+
+                 m_notify_meth = std::make_unique<message<>>( &m_owner, "notify",
+                     MIN_FUNCTION {
+                         return handle_notification(&m_owner, args);
+                    }
+                 );
+            }
+        }
+
+        // copy/move constructors and assignment
+        buffer_reference(const buffer_reference& source) = delete;
+        buffer_reference(buffer_reference&& source)      = delete;
+        buffer_reference& operator=(const buffer_reference& source) = delete;
+        buffer_reference& operator=(buffer_reference&& source) = delete;
+
 
 
         /// Destroy a buffer reference.
@@ -46,18 +80,24 @@ namespace c74::min {
         /// Bind the buffer reference to a buffer with a different name.
         /// @param	name	The name of the buffer~ with which to bind the reference.
 
-        void set(symbol name) {
+        void set(const symbol name) {
             if (!m_instance)
                 m_instance = max::buffer_ref_new(m_owner, name);
             else
                 buffer_ref_set(m_instance, name);
+            m_name = name;
+        }
+
+        /// Get the latest bound buffer name.
+        symbol name() { 
+          return m_name;
         }
 
 
-        /// Can the buffer's notify method manually
+        /// Call the buffer's notify method manually
         /// You will need to do this if you define a custom "notify" message for your object.
 
-        atoms notify(atoms args) {
+        atoms notify(const atoms& args) {
             return m_notification_callback(args, 0);
         }
 
@@ -65,48 +105,60 @@ namespace c74::min {
         /// Find out if the buffer referenced actually exists
         /// @return	True if the named buffer~ exists. Otherwise false.
 
-        operator bool() {
+        operator bool() const {
             return m_instance && max::buffer_ref_exists(m_instance);
         }
 
 
+        atoms handle_notification(object_base* an_owner, const atoms& args) {
+            notification n { args };
+
+            if (m_notification_callback) {
+                if (n.name() == k_sym_globalsymbol_binding)
+                    m_notification_callback({k_sym_binding}, -1);
+                else if (n.name() == k_sym_globalsymbol_unbinding)
+                    m_notification_callback({k_sym_unbinding}, -1);
+                else if (n.name() == k_sym_buffer_modified)
+                    m_notification_callback({k_sym_modified}, -1);
+            }
+            return { max::buffer_ref_notify(m_instance, n.registration(), n.name(), n.source(), n.data()) };
+        }
+
+        /// Handle notifications for a collection of pointers to buffer references.
+        /// Only dispatches to the appropriate buffer reference(s).
+        template<typename Iter>
+            static atoms handle_notification(object_base* an_owner, const c74::min::atoms& args, Iter begin, Iter end) {
+                notification n { args };
+                if (n.name() == k_sym_globalsymbol_binding || n.name() == k_sym_globalsymbol_unbinding || n.name() == k_sym_buffer_modified) {
+                    //the data is the buffer being bound/unbound. it should have the name
+                    auto buf = n.data();
+                    c74::max::t_symbol * name = nullptr;
+                    c74::max::object_method(buf, c74::max::gensym("getname"), &name);
+                    if (name != nullptr) {
+                        //look for buffer references that have a matching name and call their handlers
+                        c74::min::symbol mname(name);
+                        for (auto it = begin; it != end; it++) {
+                            if ((*it)->name() == mname) {
+                                (*it)->handle_notification(an_owner, args);
+                            }
+                        }
+                    }
+                }
+                return {};
+            }
+
+
     private:
-        max::t_buffer_ref* m_instance{nullptr};
+        symbol m_name;
+        max::t_buffer_ref* m_instance { nullptr };
         object_base&       m_owner;
         function           m_notification_callback;
 
         // Messages added to the owning object for this buffer~ reference
 
-        message<> set_meth = {&m_owner, "set", "Choose a named buffer~ from which to read.",
-            MIN_FUNCTION {
-                set(args[0]);
-                return {};
-            }
-        };
-
-        message<> dblclick_meth = {&m_owner, "dblclick",
-            MIN_FUNCTION {
-                max::buffer_view(max::buffer_ref_getobject(m_instance));
-                return {};
-            }
-        };
-
-        message<> notify_meth = {&m_owner, "notify",
-            MIN_FUNCTION{
-                notification n { args };
-
-                if (m_notification_callback) {
-                    if (n.name() == k_sym_globalsymbol_binding)
-                        m_notification_callback({k_sym_binding}, -1);
-                    else if (n.name() == k_sym_globalsymbol_unbinding)
-                        m_notification_callback({k_sym_unbinding}, -1);
-                    else if (n.name() == k_sym_buffer_modified)
-                        m_notification_callback({k_sym_modified}, -1);
-                }
-                return { max::buffer_ref_notify(m_instance, n.registration(), n.name(), n.source(), n.data()) };
-            }
-        };
-
+        unique_ptr<message<>> m_set_meth {};
+        unique_ptr<message<>> m_dblclick_meth {};
+        unique_ptr<message<>> m_notify_meth {};
     };
 
 
@@ -133,7 +185,7 @@ namespace c74::min {
         /// Determine if the buffer~ being accessed has valid samples to access.
         ///	@return	True if the buffer~ is valid and possesses samples. Otherwise false.
 
-        bool valid() {
+        bool valid() const {
             if (!m_buffer_obj || !m_tab)
                 return false;
             else
@@ -145,7 +197,7 @@ namespace c74::min {
         ///	@return	The length of the buffer~ in samples.
         /// @see	length_in_seconds()
 
-        size_t frame_count() {
+        size_t frame_count() const {
             return max::buffer_getframecount(m_buffer_obj);
         }
 
@@ -153,7 +205,7 @@ namespace c74::min {
         /// Determine the number of channels in the buffer~.
         ///	@return	The number of channels in the buffer~.
 
-        size_t channel_count() {
+        size_t channel_count() const {
             return max::buffer_getchannelcount(m_buffer_obj);
         }
 
@@ -190,7 +242,7 @@ namespace c74::min {
         /// Determine the sample rate of the buffer~ contents.
         /// @return	The buffer~ sample rate.
 
-        double samplerate() {
+        double samplerate() const {
             max::t_buffer_info info;
 
             max::buffer_getinfo(m_buffer_obj, &info);
@@ -202,7 +254,7 @@ namespace c74::min {
         /// @return	The length of the buffer~ in seconds.
         /// @see	frame_count()
 
-        double length_in_seconds() {
+        double length_in_seconds() const {
             return frame_count() / samplerate();
         }
 
@@ -238,8 +290,8 @@ namespace c74::min {
 
     private:
         buffer_reference&  m_buffer_ref;
-        max::t_buffer_obj* m_buffer_obj{nullptr};
-        float*             m_tab{nullptr};
+        max::t_buffer_obj* m_buffer_obj { nullptr };
+        float*             m_tab        { nullptr };
     };
 
 }    // namespace c74::min
