@@ -15,6 +15,9 @@ tmp
 .DS_Store
 .vs
 package-info.json
+**/.build
+**/build
+/build/
 
 CMakeFiles
 CMakeScripts
