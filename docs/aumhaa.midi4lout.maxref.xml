@@ -34,14 +34,14 @@
 			<description>Complete Midi message input </description>
 		</method>
 
-		<method name='bang'>
-			<digest>List available output ports</digest>
-			<description>List available output ports. </description>
-		</method>
-
 		<method name='int'>
 			<digest>MIDI byte or Port selection </digest>
 			<description>MIDI byte or Port selection </description>
+		</method>
+
+		<method name='bang'>
+			<digest>List available output ports</digest>
+			<description>List available output ports. </description>
 		</method>
 
 	</methodlist>
