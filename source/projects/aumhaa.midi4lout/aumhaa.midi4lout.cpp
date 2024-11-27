@@ -4,19 +4,15 @@
 #include <queue>
 #include "RtMidi.h"
 #include "c74_min.h"
+#include <ctime> // for time()
 
 using midi_byte = uint8_t;
 using midi_data = midi_byte[3];
 
-
 using namespace c74::min;
-
-//std::queue <int> midi_messages;
-
 
 class midi4lout : public object<midi4lout> {
     
-
 public:
     MIN_DESCRIPTION    {"Midi Input Object."};
     MIN_TAGS        {"utilities"};
@@ -30,10 +26,14 @@ public:
 //    RtMidiOut *midiout = new RtMidiOut(RtMidi::MACOSX_CORE);
     RtMidiOut *midiout;
     std::vector<unsigned char>  m4m_message {};
-    bool vport_is_open = false;
+    std::vector<string>  port_list {};
+//    bool vport_is_open = false;
     bool initialized = false;
-    
-    
+    long uid = time(0);
+    string stored_portname = "None";
+    atom port_args = "None";
+    string connected_port = "None";
+
     ~midi4lout (){
         if(midiout){
             midiout->closePort();
@@ -43,20 +43,21 @@ public:
     
     midi4lout(const atoms& args = {}) {
         midiout = new RtMidiOut(RtMidi::MACOSX_CORE);
+        if (args.size() > 0) {
+            port_args = args[0];
+        }
         defer_init.delay(1);
     }
     
     timer<> defer_init {this,
         MIN_FUNCTION {
-            if (args.size() > 0) {
-                portname = args[0];
-            } else {
-                portname = "None";
-            };
             initialized = true;
-            output2.send(k_sym_bang);
-            defer_port_udpate.delay(1);
-            cout << "iniitialized: " + std::to_string(initialized) << endl;
+            portname = port_args;
+            defer_port_udpate.stop();
+            update_port_list(true);
+            assign_port();
+            defer_port_udpate.delay(2000);
+            cout << "iniitialized: " + std::to_string(initialized) + "instance: " + std::to_string(uid) << endl;
             return {};
         }
     };
@@ -64,150 +65,143 @@ public:
     //this is a hack to deal with a "bug", calling display_ports from instantiation gets ignored.
     timer<> defer_port_udpate {this,
         MIN_FUNCTION {
-            display_ports(std::to_string(portname));
-            return {};
-        }
-    };
-    
-//    this is a hack to deal with a "bug", calling display_ports from setting attribute causes crash.
-    timer<> defer_stored_port_udpate {this,
-        MIN_FUNCTION {
-//            cout << "here" + std::to_string(portname) << endl;
-            display_ports(std::to_string(portname));
+            defer_port_udpate.stop();
+            update_port_list();
+            defer_port_udpate.delay(2000);
             return {};
         }
     };
 
-    
     //although we store the port in this attribute, we need to use a non-max value
     //for updating since setter has no option to set the data
     //before it proceeds with its sideeffects.
-    attribute<symbol> portname { this, "port", "None",
+    attribute<symbol> portname { this, "portname", "None",
         description {
             "Port to connect to."
             "The port will be connected on instantiation."
         },
         setter {
             MIN_FUNCTION {
+//                cout << stored_portname + " received!, initialized: " + std::to_string(initialized) << endl;
                 if (initialized) {
-                    string stored_portname = args[0];
-                    assign_port(stored_portname);
-                    // display_ports(stored_portname);
-                    defer_stored_port_udpate.delay(10);
+                    stored_portname = std::string(args[0]);
+                    assign_port();
+                    defer_port_udpate.stop();
+                    defer_port_udpate.delay(10);
                     return args;
+                }
+                else {
+                    port_args = args[0];
                 }
                 return {};
             }
         }
     };
 
-
     //update the port information through the second outlet
     message<> bang { this, "bang", "List available output ports.",
         MIN_FUNCTION {
-//            cout << "iniitialized: " + std::to_string(initialized) << endl;
             if (initialized) {
-                display_ports(std::to_string(portname));
+                update_port_list(true);
             }
             return {};
         }
     };
-
-    //update the port information through the second outlet
-//    message<threadsafe::yes> create_port { this, "create_port", "Create a virtual port.",
-//        MIN_FUNCTION {
-//            if (initialized) {
-//                midiout->openVirtualPort(std::to_string(args));
-//                vport_is_open = true;
-//                cout << std::to_string(args) + " created!" << endl;
-//                display_ports(std::to_string(portname));
-//            }
-//            return {};
-//        }
-//    };
     
-//    message<> maxclass_setup { this, "maxclass_setup",
-//        MIN_FUNCTION {
-//            if (initialized) {
-//                output2.send("bang");
-//                display_ports(std::to_string(portname));
-//            }
-//            return {};
-//        }
-//    };
-    
-    //send available ports out left outlet and select chosen port in umenu
-    void display_ports (string stored_port_name) {
+    std::vector<string> retrieve_current_port_list() {
+        std::vector<string>  new_port_list = {};
         int nPorts = midiout->getPortCount();
         string portName;
-        bool found = false;
-        output2.send("clear");
-        output2.send("append", "None");
-        if(stored_port_name == "None"){
-            found = true;
-        }
         for ( int i=0; i<nPorts; i++ ) {
             try {
                 portName = midiout->getPortName(i);
-                if (portName == stored_port_name){
-                    found = true;
-                    
-                }
-                output2.send("append", portName);
+                new_port_list.push_back(portName);
             }
             catch ( RtMidiError &error ) {
                 error.printMessage();
             }
         }
-        if (!found) {
-            output2.send("append", stored_port_name);
-        }
-        output2.send("setsymbol", stored_port_name);
+        return new_port_list;
     }
     
-    //assign the port internally and set its callback.
-    void assign_port (string stored_portname) {
-        midiout->closePort();
-        vport_is_open = false;
-        if (stored_portname == "None") {
-            midiout->closePort();
+    bool port_list_is_changed(std::vector<string> new_port_list) {
+        return new_port_list != port_list;
+    }
+
+    void update_port_list(bool force = false) {
+        std::vector<string>  new_port_list = retrieve_current_port_list();
+        if(force || port_list_is_changed(new_port_list)) {
+            port_list = new_port_list;
+            reconnect_stored_port();
+            display_ports();
         }
-        else {
-            bool found = false;
-            int nPorts = midiout->getPortCount();
+    }
+    
+    void display_ports () {
+        long nPorts = port_list.size();
+        string portName;
+        output2.send("clear");
+        output2.send("append", "None");
+
+        for ( int i=0; i<nPorts; i++ ) {
+            portName = port_list[i];
+            output2.send("append", portName);
+        }
+        output2.send("setsymbol", stored_portname);
+        display_assigned_port();
+    }
+    
+    //automatically reconnect a stored port address when its port becomes available
+    void reconnect_stored_port() {
+//        if(!midiout->isPortOpen()) {
+            assign_port();
+//        }
+    }
+
+    //assign the port internally and set its callback.
+    void assign_port () {
+        midiout->closePort();
+        if (stored_portname != "None") {
+            long nPorts = port_list.size();
             string portName;
             for ( int i=0; i<nPorts; i++ ) {
                 try {
-                    portName = midiout->getPortName(i);
+                    portName = port_list[i];
                     if(stored_portname==portName){
-                        found = true;
                         midiout->openPort(i, portName);
-                        cout << stored_portname + " opened!" << endl;
+                        cout << stored_portname + " opened!, initialized: " + std::to_string(initialized)  + ", instance: " + std::to_string(uid) << endl;
                     }
                 }
                 catch ( RtMidiError &error ) {
                     error.printMessage();
                 }
             }
-            if(!found){
-                try {
-                    midiout->openVirtualPort(stored_portname);
-                    vport_is_open = true;
-                    cout << stored_portname + " opened!" << endl;
-                }
-                catch ( RtMidiError &error ) {
-                    error.printMessage();
-                }
-            }
         }
+        display_assigned_port();
     };
     
+    void display_assigned_port() {
+        atoms as{};
+        as.push_back("checkitem");
+        output2.send("clearchecks");
+        auto it = std::find(port_list.begin(), port_list.end(), stored_portname);
+        if (it != port_list.end()) {
+            auto index = std::distance(port_list.begin(), it);
+            as.push_back(index+1);
+            output2.send(as);
+        } else {
+            as.push_back(0);
+            output2.send(as);
+        }
+        output2.send("setsymbol", stored_portname);
+    }
 
+    
     message<threadsafe::yes> m_ints {
         this, "int", "MIDI byte or Port selection", MIN_FUNCTION {
             int a;
             unsigned char x;
-            int stored_message_size = m4m_message.size();
+            long stored_message_size = m4m_message.size();
             a = args[0];
 //          cout << "m_ints:" + std::to_string(a) << endl;
             switch (inlet) {
@@ -233,11 +227,11 @@ public:
                         send_message();
                     }
                     break;
-                case 1:
-                    if(args.size()){
-                        portname = args[0];
-                    }
-                    break;
+//                case 1:
+//                    if(args.size()){
+//                        portname = std::string(args[0]);
+//                    }
+//                    break;
                 default:
                     assert(false);
             }
@@ -245,7 +239,16 @@ public:
         }
     };
 
-
+    //select the port from max via a message in inport 1
+    message<threadsafe::no> m_port { this, "port", "Port selection",
+        MIN_FUNCTION {
+            //            cout << "port received: " + std::to_string(args) + std::to_string(args.size()) << endl;
+            if(args.size()){
+                portname = std::string(args[0]);
+            }
+            return {};
+        }
+    };
 
     void send_message() {
         
@@ -254,10 +257,11 @@ public:
         int x;
         unsigned char a;
         std::vector<unsigned char>  msg {};
-        int stored_message_size = m4m_message.size();
+        long stored_message_size = m4m_message.size();
 
         if(stored_message_size>1){
-            if ( midiout->isPortOpen() || vport_is_open) {
+//            if ( midiout->isPortOpen() || vport_is_open) {
+            if ( midiout->isPortOpen() ) {
                 for (int i=0; i<stored_message_size; i++) {
                     x = m4m_message[i];
 //                    cout << "item:" + std::to_string(x) << endl;
@@ -276,7 +280,6 @@ public:
         m4m_message.clear();
     };
     
-    
     //    message<> m_anything { this, "anything", "Port selection",
     //        MIN_FUNCTION {
     //            cout << "anything received: " + std::to_string(args) << endl;
@@ -289,11 +292,12 @@ public:
             int x;
             unsigned char a;
             std::vector<unsigned char>  msg {};
-            int length = args.size();
+            long length = args.size();
             cout << "length of list is: " + std::to_string(length) << endl;
             
             if(length>1){
-                if ( midiout->isPortOpen() || vport_is_open) {
+//                if ( midiout->isPortOpen() || vport_is_open) {
+                if ( midiout->isPortOpen() ) {
                     for (int i=0; i<length; i++) {
                         x = args[i];
                         a = static_cast<unsigned char>(x);
@@ -332,7 +336,7 @@ public:
     
     bool validate_message() {
         unsigned long status = m4m_message[0];
-        int m_index = m4m_message.size();
+        long m_index = m4m_message.size();
 //        cout << "validate message:" + std::to_string(status) + " " + std::to_string(m_index) << endl;
             if (status < 0x80) {    // bad byte, should never happen
 //                    m_index = 0;

@@ -9,13 +9,8 @@
 
 using namespace c74::min;
 
-//std::queue <int> midi_messages;
-
 class midi4lin : public object<midi4lin> {
-    
-    
-    
-    
+
 public:
     MIN_DESCRIPTION    {"Midi Input Object."};
     MIN_TAGS        {"utilities"};
@@ -27,14 +22,17 @@ public:
     outlet<>  output2 { this, "output names of available input ports, bang on initialization" };
     
 //    RtMidiIn *midiin = new RtMidiIn(RtMidi::MACOSX_CORE);
-    //    RtMidiIn *midiin = 0;
     std::queue <int> midi_messages;
+    std::vector<string>  port_list {};
+    atom port_args = "None";
+    atom virtual_args = false;
     bool initialized = false;
     long uid = time(0);
+    string stored_portname = "None";
+    bool is_virtual = false;
     RtMidiIn *midiin;
+    int init_tries = 0;
 
-
-    
     ~midi4lin (){
         if(midiin){
             midiin->cancelCallback();
@@ -45,38 +43,25 @@ public:
     
     midi4lin(const atoms& args = {}) {
         midiin = new RtMidiIn(RtMidi::MACOSX_CORE);
+        if (args.size() > 0) {
+            port_args = args[0];
+        }
+        if (args.size() > 1) {
+            virtual_args = args[1];
+        }
         defer_init.delay(1);
     }
     
     timer<> defer_init {this,
         MIN_FUNCTION {
-            if (args.size() > 0) {
-                portname = args[0];
-            } else {
-                portname = "None";
-            };
             initialized = true;
-            output2.send(k_sym_bang);
-            defer_port_udpate.delay(1);
-            cout << "midi4lin iniitialized: " + std::to_string(initialized) + "instance: " + std::to_string(uid) << endl;
-            return {};
-        }
-    };
-    
-    
-    //this is a hack to deal with a "bug", calling display_ports from instantiation gets ignored.
-    timer<> defer_port_udpate {this,
-        MIN_FUNCTION {
-            display_ports(std::to_string(portname));
-            return {};
-        }
-    };
-    
-    //    this is a hack to deal with a "bug", calling display_ports from setting attribute causes crash.
-    timer<> defer_stored_port_udpate {this,
-        MIN_FUNCTION {
-//            cout << "here" + std::to_string(portname) << endl;
-            display_ports(std::to_string(portname));
+            portname = port_args;
+            virtual_enabled = virtual_args;
+            defer_port_udpate.stop();
+            update_port_list(true);
+            assign_port();
+            defer_port_udpate.delay(2000);
+            cout << "midi4lin iniitialized: " + std::to_string(initialized) + ", instance: " + std::to_string(uid) << endl;
             return {};
         }
     };
@@ -95,10 +80,28 @@ public:
         }
     };
     
+    //this is a hack to deal with a "bug", calling display_ports from instantiation gets ignored.
+    timer<> defer_port_udpate {this,
+        MIN_FUNCTION {
+            defer_port_udpate.stop();
+            update_port_list();
+            defer_port_udpate.delay(2000);
+            return {};
+        }
+    };
+
+    //this is a hack to deal with a "bug", calling display_ports from instantiation gets ignored.
+    timer<> defer_portname {this,
+        MIN_FUNCTION {
+            portname = port_args;
+            return {};
+        }
+    };
+    
     //although we store the port in this attribute, we need to use a non-max value
     //for updating since setter has no option to set the data
     //before it proceeds with its sideeffects.
-    attribute<symbol> portname { this, "port", "None",
+    attribute<symbol> portname { this, "portname", "None",
         description {
             "Port to connect to."
             "The port will be connected on instantiation."
@@ -106,135 +109,165 @@ public:
         setter {
             MIN_FUNCTION {
                 if (initialized) {
-                    string stored_portname = args[0];
-                    assign_port(stored_portname);
-                    //                display_ports(stored_portname);
-                    defer_stored_port_udpate.delay(1);
+//                        cout << port_args + " portname setter, " + std::to_string(init_tries) + " initialized: " + std::to_string(initialized) + ", instance: " + std::to_string(uid) << endl;
+                    defer_port_udpate.stop();
+                    stored_portname = std::string(args[0]);
+                    update_port_list();
+                    assign_port();
+                    defer_port_udpate.delay(10);
                     return args;
+                }
+                else {
+//                  init_tries += 1;
+                    port_args = args[0];
+//                  cout << port_args + " portname setter not initialized, instance: " + std::to_string(uid) << endl;
                 }
                 return {};
             }
         }
     };
     
-//    attribute<atom> available_ports { this, "ports", "None",
-//        description {
-//            "Available ports to connect to."
-//            "The list of ports that are available."
-//        },
-//        setter {
-//            MIN_FUNCTION {
-//                return {};
-//            }
-//        },
-//        getter {
-//            MIN_GETTER_FUNCTION {
-//                if (initialized) {
-////                    string portName;
-////                    int nPorts = midiin->getPortCount();
-////                    atom portList[nPorts+1];
-////                    portList[0]='None';
-////                    for ( int i=0; i<nPorts; i++ ) {
-////                        try {
-////                            portName = midiin->getPortName(i);
-////                            portList[i+1] = portName;
-////                        }
-////                        catch ( RtMidiError &error ) {
-////                            error.printMessage();
-////                        }
-////                    }
-////                    return {portList};
-////                    cout << "anything received: " + std::to_string(args) << endl;
-//                    cout << "testing" << endl;
-////                    string portlist[1];
-////                    atom portlist = ["None"];
-//                    atom portlist[1];
-//                    portlist[0] = ["None"];
-//                    return {portlist};
-//                }
-//                return {};
-//            }
-//        }
-//    };
+    attribute<bool> virtual_enabled { this, "virtual_enabled", false,
+        description {
+            "Virtual port enable/disable."
+            "When true a virtual endpoint will be created with given portname."
+        },
+        setter {
+            MIN_FUNCTION {
+                if (initialized) {
+                    defer_port_udpate.stop();
+                    is_virtual = bool(args[0]);
+                    update_port_list();
+                    assign_port();
+                    defer_port_udpate.delay(10);
+                    return args;
+                }
+                else {
+                    virtual_args = args[0];
+                }
+                return {};
+            }
+        }
+    };
+
+    //update the port information through the second outlet
+    message<> bang { this, "bang", "List available output ports.",
+        MIN_FUNCTION {
+            if (initialized) {
+                update_port_list(true);
+            }
+            return {};
+        }
+    };
     
-    //send available ports out left outlet and select chosen port in umenu
-    void display_ports (string stored_port_name) {
+    std::vector<string> retrieve_current_port_list() {
+        std::vector<string>  new_port_list = {};
         int nPorts = midiin->getPortCount();
         string portName;
-        bool found = false;
-        output2.send("clear");
-        output2.send("append", "None");
-        if(stored_port_name == "None"){
-            found = true;
-        }
         for ( int i=0; i<nPorts; i++ ) {
             try {
                 portName = midiin->getPortName(i);
-                if (portName == stored_port_name){
-                    found = true;
-                    
-                }
-                output2.send("append", portName);
+                new_port_list.push_back(portName);
             }
             catch ( RtMidiError &error ) {
                 error.printMessage();
             }
         }
-        if (!found) {
-            output2.send("append", stored_port_name);
+        if (is_virtual && (stored_portname!="None")) {
+            auto it = std::find(new_port_list.begin(), new_port_list.end(), stored_portname);
+            if (it == new_port_list.end()) {
+                new_port_list.push_back(stored_portname);
+            }
         }
-        output2.send("setsymbol", stored_port_name);
+        return new_port_list;
+    }
+    
+    bool port_list_is_changed(std::vector<string> new_port_list) {
+        return new_port_list != port_list;
+    }
+
+    void update_port_list(bool force = false) {
+        std::vector<string> new_port_list = retrieve_current_port_list();
+        if(force || port_list_is_changed(new_port_list)) {
+            port_list = new_port_list;
+//            reconnect_stored_port();
+            display_ports();
+        }
+    }
+    
+    void display_ports () {
+        long nPorts = port_list.size();
+        string portName;
+//        bool found = stored_portname == "None";
+        output2.send("clear");
+        output2.send("append", "None");
+
+        for ( int i=0; i<nPorts; i++ ) {
+            portName = port_list[i];
+//            if (portName == stored_portname){
+//                found = true;
+//            }
+            output2.send("append", portName);
+        }
+//        if (!found) {
+//            output2.send("append", stored_portname);
+//        }
+        output2.send("setsymbol", stored_portname);
+        display_assigned_port();
+    }
+    
+    //automatically reconnect a stored port address when its port becomes available
+    void reconnect_stored_port() {
+//        if(!midiin->isPortOpen()) {
+            assign_port();
+//        }
     }
     
 //    //assign the port internally and set its callback.
-//    void assign_port (string stored_portname) {
+//    void assign_port_old () {
+//        midiin->cancelCallback();
 //        midiin->closePort();
-//        if (stored_portname == "None") {
-//            midiin->cancelCallback();
-//            midiin->closePort();
-//        }
-//        else {
+//        if (stored_portname != "None") {
+////            midiin->closePort();
 //            bool found = false;
-//            int nPorts = midiin->getPortCount();
+//            long nPorts = port_list.size();
 //            string portName;
 //            for ( int i=0; i<nPorts; i++ ) {
 //                try {
-//                    portName = midiin->getPortName(i);
+//                    portName = port_list[i];
 //                    if(stored_portname==portName){
 //                        found = true;
 //                        midiin->openPort(i, portName);
-////                        midiin->setCallback(&midiinCallback, (void*)this);
-//                        midiin->setCallback(&midiinCallback, (void*)midi4lin);
+//                        midiin->setCallback(&midiinCallback, (void*)this);
 //                        midiin->ignoreTypes(false, false, false);
-//                        cout << portName + " opened!" << endl;
+//                        cout << portName + " opened!, initialized: " + std::to_string(initialized) + ", instance: " + std::to_string(uid) << endl;
 //                    }
 //                }
 //                catch ( RtMidiError &error ) {
 //                    error.printMessage();
 //                }
 //            }
-//            if(!found){
+//            if(!found && is_virtual){
 //                try {
 //                    midiin->openVirtualPort(stored_portname);
 //                    midiin->setCallback(&midiinCallback, (void*)this);
 //                    midiin->ignoreTypes(false, false, false);
-//                    cout << stored_portname + " opened!" << endl;
+//                    cout << stored_portname + " opened!, initialized: " + std::to_string(initialized) + ", instance: " + std::to_string(uid) << endl;
 //                }
 //                catch ( RtMidiError &error ) {
 //                    error.printMessage();
 //                }
 //            }
 //        }
+//        display_assigned_port();
 //    };
-
+    
     //assign the port internally and set its callback.
-    void assign_port (string stored_portname) {
+    void assign_port () {
+        midiin->cancelCallback();
         midiin->closePort();
-        if (stored_portname == "None") {
-            midiin->cancelCallback();
-            midiin->closePort();
-        }
-        else {
+        if (stored_portname != "None") {
+//            midiin->closePort();
             bool found = false;
             int nPorts = midiin->getPortCount();
             string portName;
@@ -244,43 +277,48 @@ public:
                     if(stored_portname==portName){
                         found = true;
                         midiin->openPort(i, portName);
-//                        midiin->setCallback(&midiinCallback, (void*)this);
                         midiin->setCallback(&midiinCallback, (void*)this);
                         midiin->ignoreTypes(false, false, false);
-                        cout << portName + " opened!" << endl;
+                        cout << portName << + " opened!, initialized: " + std::to_string(initialized) + ", instance: " + std::to_string(uid) << endl;
                     }
                 }
                 catch ( RtMidiError &error ) {
                     error.printMessage();
                 }
             }
-            if(!found){
+            if(!found && is_virtual){
                 try {
                     midiin->openVirtualPort(stored_portname);
                     midiin->setCallback(&midiinCallback, (void*)this);
                     midiin->ignoreTypes(false, false, false);
-                    cout << stored_portname + " opened!" << endl;
+                    cout << stored_portname << + " opened!, initialized: " + std::to_string(initialized) + ", instance: " + std::to_string(uid) << endl;
                 }
                 catch ( RtMidiError &error ) {
                     error.printMessage();
                 }
             }
         }
+        display_assigned_port();
     };
     
-    //this static function uses *userData as a pointer to the instance.  It can't call anything that
-    //sends an output to max, so we defer it slightly and queue its messages to be handled by another method.
-//    static void midiinCallback2 ( double deltatime, std::vector< unsigned char > *message, void *userData ) {
-//        auto& owner = *(midi4lin*)userData;
-////        auto* owner = static_cast<midi4lin*>(userData);
-//        owner.defer.delay(0);
-//        unsigned int nBytes = message->size();
-//        for ( unsigned int i=0; i<nBytes; i++ ) {
-//            midi_messages.push(message->at(i));
-////            int out = message->at(i);
-////            owner.output.send(out);
-//        }
-//    };
+    
+    void display_assigned_port() {
+        atoms as{};
+        as.push_back("checkitem");
+        output2.send("clearchecks");
+        auto it = std::find(port_list.begin(), port_list.end(), stored_portname);
+        if (it != port_list.end()) {
+            auto index = std::distance(port_list.begin(), it);
+            as.push_back(index+1);
+            output2.send(as);
+            output2.send("setsymbol", stored_portname);
+        } else {
+            as.push_back(0);
+            output2.send(as);
+            output2.send("setsymbol", "None");
+        }
+
+    }
     
     // Static callback
     static void midiinCallback(double deltatime, std::vector<unsigned char>* message, void* userData) {
@@ -295,26 +333,40 @@ public:
     }
     
     //select the port from max via a message in inport 1
-    message<threadsafe::yes> m_port { this, "port", "Port selection",
+    message<threadsafe::no> m_port { this, "port", "Port selection",
         MIN_FUNCTION {
             //            cout << "port received: " + std::to_string(args) + std::to_string(args.size()) << endl;
             if(args.size()){
-                portname = args[0];
+                portname = std::string(args[0]);
+//                port_args = args[0];
+//                defer_portname.delay(1);
+            }
+            return {};
+        }
+    };
+    
+    message<threadsafe::no> m_virtual { this, "virtual", "Port selection",
+        MIN_FUNCTION {
+            //            cout << "port received: " + std::to_string(args) + std::to_string(args.size()) << endl;
+            if(args.size()){
+                virtual_enabled = bool(args[0]);
+//                port_args = args[0];
+//                defer_portname.delay(1);
             }
             return {};
         }
     };
     
     //update the port information through the second outlet
-    message<threadsafe::yes> bang { this, "bang", "List available input ports.",
-        MIN_FUNCTION {
-            cout << "iniitialized: " + std::to_string(initialized) << endl;
-            if(initialized){
-                display_ports(std::to_string(portname));
-            }
-            return {};
-        }
-    };
+//    message<threadsafe::yes> bang { this, "bang", "List available input ports.",
+//        MIN_FUNCTION {
+//            cout << "iniitialized: " + std::to_string(initialized) << endl;
+//            if(initialized){
+//                display_ports(std::to_string(portname));
+//            }
+//            return {};
+//        }
+//    };
     
     //    message<> m_anything { this, "anything", "Port selection",
     //        MIN_FUNCTION {

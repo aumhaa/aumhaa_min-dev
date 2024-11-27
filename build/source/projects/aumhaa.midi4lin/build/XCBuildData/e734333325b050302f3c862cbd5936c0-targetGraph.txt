@@ -1,4 +1,0 @@
-Target dependency graph (2 targets)
-ZERO_CHECK in aumhaa.midi4lin, no dependencies
-aumhaa.midi4lin in aumhaa.midi4lin, depends on:
-ZERO_CHECK in aumhaa.midi4lin (explicit)

@@ -39,6 +39,11 @@
 			<description>MIDI byte or Port selection </description>
 		</method>
 
+		<method name='port'>
+			<digest>Port selection </digest>
+			<description>Port selection </description>
+		</method>
+
 		<method name='bang'>
 			<digest>List available output ports</digest>
 			<description>List available output ports. </description>
@@ -51,7 +56,7 @@
 
 	<attributelist>
 
-		<attribute name='port' get='1' set='1' type='symbol' size='1' >
+		<attribute name='portname' get='1' set='1' type='symbol' size='1' >
 			<digest>Port to connect to.The port will be connected on instantiation</digest>
 			<description>Port to connect to.The port will be connected on instantiation. </description>
 		</attribute>
