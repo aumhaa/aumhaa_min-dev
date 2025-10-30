@@ -56,7 +56,7 @@
 			<description>Virtual port enable/disable.When true a virtual endpoint will be created with given portname. </description>
 		</attribute>
 
-		<attribute name='portname' get='1' set='1' type='symbol' size='1' >
+		<attribute name='name' get='1' set='1' type='symbol' size='1' >
 			<digest>Port to connect to.The port will be connected on instantiation</digest>
 			<description>Port to connect to.The port will be connected on instantiation. </description>
 		</attribute>

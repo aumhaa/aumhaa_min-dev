@@ -56,7 +56,7 @@
 
 	<attributelist>
 
-		<attribute name='portname' get='1' set='1' type='symbol' size='1' >
+		<attribute name='name' get='1' set='1' type='symbol' size='1' >
 			<digest>Port to connect to.The port will be connected on instantiation</digest>
 			<description>Port to connect to.The port will be connected on instantiation. </description>
 		</attribute>

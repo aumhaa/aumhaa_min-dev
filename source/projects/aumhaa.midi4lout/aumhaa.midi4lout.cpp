@@ -75,7 +75,7 @@ public:
     //although we store the port in this attribute, we need to use a non-max value
     //for updating since setter has no option to set the data
     //before it proceeds with its sideeffects.
-    attribute<symbol> portname { this, "portname", "None",
+    attribute<symbol> portname { this, "name", "None",
         description {
             "Port to connect to."
             "The port will be connected on instantiation."
